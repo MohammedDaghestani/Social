@@ -50,10 +50,15 @@ class ProfileView(LoginRequiredMixin, View):
         # return render(request, 'accounts/login.html')
 
 class FacebookLoginView(View):
-    app = FacebookApp.objects.first()
-    app_id = app.app_id
-    app_secret = app.app_secret
-    redirect_url = app.redirect_url
+    try:
+        app = FacebookApp.objects.first()
+        app_id = app.app_id
+        app_secret = app.app_secret
+        redirect_url = app.redirect_url
+    except:
+        app_id = '482847369816069'
+        app_secret = '11b994aa0b08dabbcb04c3b2ade775e7'
+        redirect_url = 'https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/'
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             try:
