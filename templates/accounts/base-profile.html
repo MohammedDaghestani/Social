@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/profile-style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/dashboard-style.css' %}">
+    {% block styles %}{% endblock styles %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light shadow" aria-label="Eighth navbar example">
+    <div class="container">
+      <a class="navbar-brand" href="/">Social Media</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" id='toogler'>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" >
+        <ul class="navbar-nav mb-lg-0" id='nav'>
+            <li id='toggleItem' class="nav-item">
+                <a class="nav-link active" aria-current="page" href=" {% url 'main:index' %} ">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=" {% url 'accounts:logout' %} ">Logout</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            {% block sidebar %}{% endblock sidebar %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% block content %}{% endblock content %}
+            </main>
+    
+        </div>
+    </div>
+    {% block scripts %}{% endblock scripts %}
+    <script src=" {% static 'main/js/bootstrap.bundle.min.js' %} "></script>
+    <script src=" {% static 'main/js/jquery-3.6.0.js' %} "></script>
+    <script src=" {% static 'main/js/jquery-3.6.0.min.js' %} "></script>
+    <script src=" {% static 'main/js/profile.js' %} "></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/aos.css' %}">
+{% endblock styles %}
+{% block content %}
+<header class="page-header gradient">
+    <div class="container pt-5">
+        <div class="row align-items-center justify-content-center g-0">
+            <div class="col-md-5 px-3">
+                <h2>BEST PLACE TO MANAGE SOCIAL MEDIA ACCOUNTS</h2>
+                <p>
+                    Manage all your Social Media accounts in one place and without writing any line of code 
+                </p>
+            </div>
+            <div class="col-md-5 text-center" data-aos='fade-up' data-aos-duration='1000'>
+                <img src=" {% static 'main/imgs/Header.svg' %} " alt="Header image" style="width:24rem;">
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,128L120,138.7C240,149,480,171,720,154.7C960,139,1200,85,1320,58.7L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
+</header>
+<section>   
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-5 " data-aos='fade-right' data-aos-duration='1000' data-aos-anchor-placement='top-center'>
+                <img src=" {% static 'main/imgs/Facebook.svg' %} " alt="Facebook image" style="width:24rem;">
+            </div> 
+            <div class="col-md-5 p-3">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum tempora vel, eos ut quam tenetur, totam aperiam voluptate voluptas nemo illum aliquid, ullam earum iste! Itaque nostrum maiores numquam omnis.
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section gradient">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,256L120,229.3C240,203,480,149,720,144C960,139,1200,181,1320,202.7L1440,224L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path></svg>
+    <div class="container">
+        <div class="row align-items-center justify-content-center p-0 m-0">
+            <div class="col-md-5 p-3">
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt itaque a nulla culpa facere quo illo praesentium minima exercitationem reiciendis tempore porro, aut consequatur numquam magnam omnis non alias? Odio!
+                </p>
+            </div>
+            <div class="col-md-5 " data-aos='fade-up' data-aos-duration='1000' data-aos-anchor-placement='top-center'>
+                <img src=" {% static 'main/imgs/Instagram.svg' %} " alt="Instagram image" style="width:23.5rem;">
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,96L120,106.7C240,117,480,139,720,122.7C960,107,1200,53,1320,26.7L1440,0L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
+</section>
+<section>   
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-5" data-aos='fade-right' data-aos-duration='1000' data-aos-anchor-placement='top-center'>
+                <img src=" {% static 'main/imgs/Messenger001.svg' %} " alt="Messenger image" style="width:20rem;">
+            </div> 
+            <div class="col-md-5 p-3">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum tempora vel, eos ut quam tenetur, totam aperiam voluptate voluptas nemo illum aliquid, ullam earum iste! Itaque nostrum maiores numquam omnis.
+            </div>
+        </div>
+    </div>
+</section>
+{% comment %} <footer class="bg-light text-center text-lg-start">
+ 
+</footer> {% endcomment %}
+<footer class="bg-light text-center gradient text-light">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,288L120,272C240,256,480,224,720,229.3C960,235,1200,277,1320,298.7L1440,320L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path></svg>
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a
+        class="btn btn-primary btn-floating m-1"
+        style="background-color: #3b5998;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-facebook-f"></i
+      >f</a>
+
+      <!-- Twitter -->
+      <a
+        class="btn btn-primary btn-floating m-1"
+        style="background-color: #55acee;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-twitter"></i
+      >t</a>
+
+      <!-- Google -->
+      <a
+        class="btn btn-primary btn-floating m-1"
+        style="background-color: #dd4b39;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-google"></i
+      >g</a>
+
+      <!-- Instagram -->
+      <a
+        class="btn btn-primary btn-floating m-1"
+        style="background-color: #ac2bac;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-instagram"></i
+      >i</a>
+
+      <!-- Linkedin -->
+      <a
+        class="btn btn-primary btn-floating m-1"
+        style="background-color: #0082ca;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-linkedin-in"></i
+      >l</a>
+      <!-- Github -->
+      <a
+        class="btn btn-primary btn-floating m-1"
+        style="background-color: #333333;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+   <!-- Copyright -->
+  <div class="text-center p-3" >
+    © 2021 Copyright: Made with &#10084; By  
+    <a class="text-light" href="">Eng: Mohamad Daghestani</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
+<script src=" {% static 'main/js/aos.js' %} "></script>
+<script>
+    AOS.init();
+</script>
+{% endblock content %}

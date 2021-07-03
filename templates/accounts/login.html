@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'main/css/login-style.css' %}">
+{% endblock styles %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-title mt-4 text-center">
+            <h1 class="h3">Login</h1>
+        </div>
+        <div class="card-body text-center">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}   
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if form.errors %}
+                    {% for key, value in form.errors.items %}
+                        {% if key == '__all__' %}
+                            <div class="alert alert-danger">
+                                {{ value }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="UsernameInput" placeholder="Email" autofocus="true" required="true" name="username">
+                    <label for="UsernameInput">Email Address</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="PasswordInput" placeholder="Password" autofocus="true" required="true" name="password"> 
+                    <label for="PasswordInput">Password</label>
+                </div>
+                <button type="submit" class="btn btn-dark mt-4">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

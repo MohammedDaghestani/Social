@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block styles %}
+{% comment %} <link rel="stylesheet" href="{% static 'main/css/login-style.css' %}"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'main/css/register-style.css' %}">
+{% endblock styles %}
+{% block content %}
+<div class="container">
+    <div class="card register-card">
+        <div class="card-title mt-4 text-center">
+            <h1 class="h3">Register new account</h1>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    {% for key, value in form.errors.items %}
+                        {% if key == '__all__' %}
+                            <div class="alert alert-danger">
+                                {{ value }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {{ form }}
+                <button type="submit" class="btn btn-dark mt-4">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,37 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse shadow navbar-collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column nav-pills" id='insert'>
+                        <li id='insert-before' class="nav-item">
+                            <a class="nav-link {% if active == 'dashboard' %}text-light active{% endif %}" aria-current="page" href=" {% url 'accounts:profile' %} ">
+                            {% comment %} <span data-feather="home"></span> {% endcomment %}
+                            Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            {% comment %} <a class="nav-link {% if active == 'facebook' %}text-light active{% endif %}" href=" {% url 'accounts:facebook-profile' p_id %} "> {% endcomment %}
+                            <a class="nav-link {% if active == 'facebook' %}text-light active{% endif %}" href="  ">
+                            {% comment %} <span data-feather="file"></span> {% endcomment %}
+                            Facebook Pages
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">
+                            {% comment %} <span data-feather="shopping-cart"></span> {% endcomment %}
+                            Facebook Groups
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            {% comment %} <span data-feather="users"></span> {% endcomment %}
+                            Facebook Messenger
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            {% comment %} <span data-feather="bar-chart-2"></span> {% endcomment %}
+                            Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
