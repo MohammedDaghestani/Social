@@ -93,6 +93,40 @@ class FacebookLoginView(View):
         context = request.GET['code']
         return render(request, 'accounts/facebook-info.html', {'data': context})
 
+class FacebookProfileView(LoginRequiredMixin,View):
+    template_name = 'accounts/facebook-dashboard.html'
+    try:
+        app = FacebookApp.objects.first()
+        app_id = app.app_id
+        app_secret = app.app_secret
+        redirect_url = app.redirect_url
+    except:
+        app_id = '482847369816069'
+        app_secret = '11b994aa0b08dabbcb04c3b2ade775e7'
+        redirect_url = 'https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/'
+    def get(self, request, *args, **kwargs):
+        try:
+            profile = UserProfile.objects.get(user = request.user) 
+        except:
+            profile = UserProfile.objects.create(user = request.user)
+        print(request.GET['page_id'])
+        # page = profile.facebookpageaccesstoken_set.first()
+        # request.session.get('page_id', pk)
+        # print(request.session())
+        # request.session['page_id'] = pk
+        # page_id = request.session['page_id']
+        # print(page_id)
+        # graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
+        # page = request.user.userprofile.facebookpageaccesstoken_set.get(page_id = page_id)
+        # graph.access_token = page.page_access_token
+        # # data = {
+        # #     'posts': graph.graph_api('posts')['posts']['data']
+        # # }
+        # # return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpageaccesstoken_set.all(), 'page_id': page_id, 'posts': graph.graph_api('posts')['posts']['data'], 'page': page})
+        # return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpageaccesstoken_set.all(), 'page_id': page_id, 'posts': graph.get_posts(), 'page': page})
+        return render(request, self.template_name)
+
+
 # class RemoveProfileView(View):
 #     def get(self, request, *args, **kwargs):
 #         UserProfile.objects.get(user = request.user).delete()

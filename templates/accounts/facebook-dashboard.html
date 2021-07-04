@@ -1,4 +1,4 @@
-{% extends 'main/base-profile.html' %}
+{% extends 'accounts/base-profile.html' %}
 {% load static %}
 {% block title %}Facebook{% endblock title %}
 {% block sidebar %}
@@ -48,7 +48,7 @@
                             <div class='lead'>Facebook Page</div>
                         </div>
                         <div class="col-md-4 text-end">
-                            <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a>
+                            {% comment %} <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a> {% endcomment %}
                         </div>
                     </div>
                 </div>
