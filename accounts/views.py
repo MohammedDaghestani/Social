@@ -41,7 +41,7 @@ class DashboardView(LoginRequiredMixin, View):
         try:
             page_id = request.session['page_id']
         except:
-            page_id = request.session.get('page_id', page.page_id)
+            page_id = request.session.get('page_id', page.id)
 
         # if not id:
         # else: page_id = id
