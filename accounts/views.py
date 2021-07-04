@@ -37,7 +37,7 @@ class DashboardView(LoginRequiredMixin, View):
         except:
             profile = UserProfile.objects.create(user = request.user)
         
-        page = profile.facebookpageaccesstoken_set.first()
+        page = profile.facebookpage_set.first()
         try:
             page_id = request.session['page_id']
         except:
