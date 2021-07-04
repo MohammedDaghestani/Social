@@ -27,7 +27,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
     success_message = 'Your account created successfully!'
 
 
-class ProfileView(LoginRequiredMixin, View):
+class DashboardView(LoginRequiredMixin, View):
     template_name = 'accounts/profile.html'
     def get(self, request, *args, **kwargs):
         # if request.user.is_authenticated:
@@ -92,7 +92,7 @@ class FacebookLoginView(View):
         context = request.GET['code']
         return render(request, 'accounts/facebook-info.html', {'data': context})
 
-class RemoveProfileView(View):
-    def get(self, request, *args, **kwargs):
-        UserProfile.objects.get(user = request.user).delete()
-        return HttpResponseRedirect(reverse('accounts:profile'))
+# class RemoveProfileView(View):
+#     def get(self, request, *args, **kwargs):
+#         UserProfile.objects.get(user = request.user).delete()
+#         return HttpResponseRedirect(reverse('accounts:profile'))
