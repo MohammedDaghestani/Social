@@ -117,7 +117,7 @@ class FacebookProfileView(LoginRequiredMixin,View):
         print(page_id)
         graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
         page = request.user.userprofile.facebookpage_set.get(id = page_id)
-        graph.access_token = page.page_access_token
+        graph.access_token = page.access_token
         # data = {
         #     'posts': graph.graph_api('posts')['posts']['data']
         # }
