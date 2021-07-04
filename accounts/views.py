@@ -28,7 +28,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
 
 
 class DashboardView(LoginRequiredMixin, View):
-    template_name = 'accounts/profile.html'
+    template_name = 'accounts/dashboard.html'
     def get(self, request, *args, **kwargs):
         # if request.user.is_authenticated:
         try:
@@ -84,10 +84,10 @@ class FacebookLoginView(View):
                         page.pic_url = graph.picture_url(value['id'], value['access_token'])
                         page.save()
                 messages.success(request, 'You signed into facebook successfuly!')
-                return HttpResponseRedirect(reverse('accounts:profile'))
+                return HttpResponseRedirect(reverse('accounts:dashboard'))
             except:
                 messages.success(request, 'Error signing to facebook, Please try again')
-                return HttpResponseRedirect(reverse('accounts:profile'))
+                return HttpResponseRedirect(reverse('accounts:dashboard'))
                     
         context = request.GET['code']
         return render(request, 'accounts/facebook-info.html', {'data': context})

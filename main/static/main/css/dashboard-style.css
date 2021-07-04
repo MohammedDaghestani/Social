@@ -1,17 +1,6 @@
-/* body {
-  font-size: .875rem;
-} */
-/* 
-.feather {
-  width: 16px;
-  height: 16px;
-  vertical-align: text-bottom;
-} */
-
-/*
- * Sidebar
- */
-
+body{
+  background-color: rgba(242, 242, 242,1);
+}
 .sidebar {
   position: fixed;
   top: 0;
@@ -90,4 +79,26 @@
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+.card{
+  border-radius: 0.5em;
+}
+.select{
+  width: 20rem;
+  margin-bottom: 0;
+}
+.pic{
+  /* position:absolute; */
+  /* top: .5rem; */
+  /* left: 2.5rem; */
+  width: fit-content;
+  border: 5px whitesmoke solid;
+  border-radius: 5rem;
+}
+.pic img{
+  /* position:absolute;
+  top: -1rem;
+  left: 3rem; */
+  width: 80px;
+  border-radius: 5rem;
 }

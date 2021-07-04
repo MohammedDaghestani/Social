@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/profile-style.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'main/css/profile-style.css' %}"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'main/css/dashboard-style.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
     {% block styles %}{% endblock styles %}

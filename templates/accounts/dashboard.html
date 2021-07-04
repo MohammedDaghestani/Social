@@ -1,0 +1,104 @@
+{% extends 'accounts/base-profile.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% block sidebar %}
+{% include 'main/sidebar.html' with active='dashboard' p_id=page_id %}
+{% endblock sidebar %}
+
+{% block content %}
+<br><br><br>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard | {{ user.get_full_name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+        <div class="container profile">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Posts traggered
+                        </div>
+                        <div class="card-body text-center">
+                            50
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Comments replied
+                        </div>
+                        <div class="card-body text-center">
+                            3515
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Replied privetly
+                        </div>
+                        <div class="card-body text-center">
+                            35
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Posts shares
+                        </div>
+                        <div class="card-body text-center">
+                            151
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row pt-4">
+                <h4>
+                    Facebook Account
+                </h4>
+                {% if profile.facebook_user_id %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-1 text-center">
+                                <div class="pic shadow">
+                                    <img src=" {{ profile.pic_url }} " alt="Facebook profile picture" >
+                                </div>
+                            </div>
+                            <div class="col-md-8 name px-4">
+                                <h5>{{profile.facebook_user_name}}</h5>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <a href=" https://graph.facebook.com/oauth/authorize?client_id=482847369816069&redirect_uri=https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/&scope=email,pages_manage_metadata,pages_manage_posts,pages_read_engagement,pages_read_user_content,pages_show_list,public_profile,pages_manage_engagement,pages_messaging ">Reconnect account</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center pt-3">
+                    <a href="https://graph.facebook.com/oauth/authorize?client_id=482847369816069&redirect_uri=https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/&scope=email,pages_manage_metadata,pages_manage_posts,pages_read_engagement,pages_read_user_content,pages_show_list,public_profile,pages_manage_engagement,pages_messaging">Add Facebook account</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock content %}
