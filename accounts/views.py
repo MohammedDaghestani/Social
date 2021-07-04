@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView
 from django.views.generic.base import View
+from requests.api import request
 from .models import User
 from .forms import RegisterForm
 from .facebookapi import FacebookGraph
@@ -90,3 +91,8 @@ class FacebookLoginView(View):
                     
         context = request.GET['code']
         return render(request, 'accounts/facebook-info.html', {'data': context})
+
+class RemoveProfileView(View):
+    def get(self, request, *args, **kwargs):
+        UserProfile.objects.get(user = request.user).delete()
+        return HttpResponseRedirect(reverse('accounts:profile'))
