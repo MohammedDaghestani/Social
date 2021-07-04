@@ -6,6 +6,7 @@ from .views import (
     DashboardView,
     FacebookLoginView,
     # RemoveProfileView,
+    # ReconnectFacebookView,
 )
 
 app_name = 'accounts'
@@ -16,4 +17,5 @@ urlpatterns = [
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('facebook-login/', FacebookLoginView.as_view(), name='facebook-login'),
     # path('remove-profile/', RemoveProfileView.as_view(), name='remove-profile'),    
+    # path('reconnect-facebook', ReconnectFacebookView.as_view(), name='reconnect-facebook'),
 ]

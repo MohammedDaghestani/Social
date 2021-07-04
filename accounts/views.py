@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.messages import views
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -96,3 +97,8 @@ class FacebookLoginView(View):
 #     def get(self, request, *args, **kwargs):
 #         UserProfile.objects.get(user = request.user).delete()
 #         return HttpResponseRedirect(reverse('accounts:profile'))
+
+# class ReconnectFacebookView(View):
+#     def get(self, request, *args, **kwargs):
+#         UserProfile.objects.get(user = request.user).delete()
+#         return HttpResponseRedirect('https://graph.facebook.com/oauth/authorize?client_id=482847369816069&redirect_uri=https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/&scope=email,pages_manage_metadata,pages_manage_posts,pages_read_engagement,pages_read_user_content,pages_show_list,public_profile,pages_manage_engagement,pages_messaging')
