@@ -18,7 +18,7 @@
                 <select name="page_id" class='form-select select' onchange='window.location.href=this.value;'>
                     {% for page in pages %}
                         <option class='form-option' value=" {% url 'accounts:facebook-profile' page.page_id %} " {% if page_id == page.page_id %}selected{% endif %}>
-                        {% comment %} <div><img src="{{ page.pic_url }}" alt="Profile Picture"></div> {% endcomment %}
+                        <div><img src="{{ page.pic_url }}" alt="Profile Picture"></div>
                         {{ page.page_name }}
                         </option>
                     {% endfor %}
@@ -48,7 +48,7 @@
                             <div class='lead'>Facebook Page</div>
                         </div>
                         <div class="col-md-4 text-end">
-                            {% comment %} <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a> {% endcomment %}
+                            <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a>
                         </div>
                     </div>
                 </div>
