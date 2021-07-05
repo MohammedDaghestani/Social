@@ -5,9 +5,9 @@ from .views import (
     RegisterView,
     DashboardView,
     FacebookLoginView,
-    # RemoveProfileView,
-    # ReconnectFacebookView,
     FacebookProfileView,
+    AddPost,
+    AutomatePostCommentsResponseView,
 )
 
 app_name = 'accounts'
@@ -17,7 +17,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('facebook-login/', FacebookLoginView.as_view(), name='facebook-login'),
-    # path('remove-profile/', RemoveProfileView.as_view(), name='remove-profile'),    
-    # path('reconnect-facebook', ReconnectFacebookView.as_view(), name='reconnect-facebook'),
     path('facebook/', FacebookProfileView.as_view(), name='facebook-profile'),
+    path('add-post/', AddPost.as_view(), name='add-post'),
+    path('add-automate-response/<str:post_id>/', AutomatePostCommentsResponseView.as_view(), name='response'),
 ]

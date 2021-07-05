@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<br><br><br><br>
+<form action="" method="post">
+{% csrf_token %}
+<div>
+    <select name="page_id" id="">
+        {% for page in pages %}
+            <option value="{{ page.id }}">{{ page.name }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div>
+    <label for="message">Enter the post here</label>
+    <input type="text" name="message" id="message">
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

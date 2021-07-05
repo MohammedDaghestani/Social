@@ -1,0 +1,76 @@
+{% extends 'accounts/base-profile.html' %}
+{% load static %}
+{% block title %}Facebook{% endblock title %}
+{% block sidebar %}
+{% include 'main/sidebar.html' with active='facebook' p_id=page.page_id %}
+{% endblock sidebar %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'main/css/automate_post_comments_response-style.css' %}">
+{% endblock styles %}
+
+
+{% block content %}
+{% comment %} <br><br><br> {% endcomment %}
+<div class="container">
+    <div class="card post shadow">
+        <div class="card-title mt-3 mx-3 align-items-center ">
+            <div class='dio'>
+                <div class="page">
+                    <span class="pic shadow-sm ">
+                        <img src="{{ page.pic_url }}" alt="Profile Picture">
+                    </span>
+                </div>
+                <div class="page">
+                    <div class="h7">{{ page.page_name }}</div>
+                    {% if post.admin_creator.name %}
+                        <div class='form-text'>Published by {{ post.admin_creator.name }}</div>
+                    {% endif %}
+                    <div class='form-text'>{{ post.created_time }}</div>
+                </div>
+            </div>
+            {% comment %} <div class="row">
+                <div class="col-sm-1">
+                    <span class="pic shadow-sm">
+                        <img src="{{ page.pic_url }}" alt="Profile Picture">
+                    </span>
+                </div>
+                <div class="col-sm">
+                    <div class="h7">{{ page.page_name }}</div>
+                    <div class='form-text'>Published by {{ post.admin_creator.name }}</div>
+                </div>
+            </div> {% endcomment %}
+        </div>
+        <div class="card-body">
+            <div>
+                {{ post.message|linebreaks }}
+            </div>
+            {% if post.full_picture %}
+                <div class='container text-center'>
+                    <img class='post-pic' src=" {{ post.full_picture }} " alt="post picture">
+                </div>
+            {% endif %}
+        </div>
+        <div class="container frm">
+        <form action="" method="post" class='mb-4'>
+        {% csrf_token %}
+        <div class='mb-2'>
+            <label for="response">Enter the response</label>
+            <input class='form-control' type="text" name='response' id='response'>
+        </div>
+        <div class='mb-2'>
+            <label for="response_privetly">Enter the response (Privetly)</label>
+            <input class='form-control' type="text" name='response_privetly' id='response_privetly'>
+        </div>
+        <div class='mb-2'>
+            <label for="automation">Automation name</label>
+            <input class='form-control' type="text" name="automation" id="automation">
+        </div>
+        <input type="hidden" name="post_id" value='{{ post.id }}'>
+        <button type="submit" class="btn btn-primary mt-2 ">Submit</button>
+        </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

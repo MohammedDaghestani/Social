@@ -126,3 +126,14 @@ class FacebookPage(models.Model):
     pic_url        = models.URLField(_("Picture URL"), max_length=500)
     def __str__(self):
         return self.name
+
+
+class AutomatePostCommentsResponse(models.Model):
+    page = models.ForeignKey(FacebookPage, on_delete=models.CASCADE)
+    post = models.CharField(_("post id"), max_length=255)
+    response = models.CharField(max_length=500)
+    response_privetly = models.CharField(max_length=1000, blank=True, null=True)
+    name = models.CharField(_('automate name'), max_length=255)
+
+    def __str__(self):
+        return self.name

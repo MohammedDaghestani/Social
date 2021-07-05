@@ -17,7 +17,7 @@ from .models import (
     UserProfile,
     FacebookApp,
     FacebookPage,
-
+    AutomatePostCommentsResponse,
 )
 
 
@@ -130,12 +130,56 @@ class FacebookProfileView(LoginRequiredMixin,View):
         return render(request, self.template_name, {'profile': profile})
 
 
-# class RemoveProfileView(View):
-#     def get(self, request, *args, **kwargs):
-#         UserProfile.objects.get(user = request.user).delete()
-#         return HttpResponseRedirect(reverse('accounts:profile'))
+class AddPost(View):
+    template_name = 'accounts/add_post.html'
+    try:
+        app = FacebookApp.objects.first()
+        app_id = app.app_id
+        app_secret = app.app_secret
+        redirect_url = app.redirect_url
+    except:
+        app_id = '482847369816069'
+        app_secret = '11b994aa0b08dabbcb04c3b2ade775e7'
+        redirect_url = 'https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/'    
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'pages': request.user.userprofile.facebookpage_set.all()})
 
-# class ReconnectFacebookView(View):
-#     def get(self, request, *args, **kwargs):
-#         UserProfile.objects.get(user = request.user).delete()
-#         return HttpResponseRedirect('https://graph.facebook.com/oauth/authorize?client_id=482847369816069&redirect_uri=https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/&scope=email,pages_manage_metadata,pages_manage_posts,pages_read_engagement,pages_read_user_content,pages_show_list,public_profile,pages_manage_engagement,pages_messaging')
+    def post(self, request, *args, **kwargs):
+        page = FacebookPage.objects.get(id = request.POST['page_id'])
+        graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
+        post_id = graph.add_post(page.id ,request.POST['message'], page.access_token)['id']
+        messages.success(request, 'Post add successfuly with id %s' % post_id)
+        return HttpResponseRedirect(reverse('accounts:facebook-profile'))
+
+
+class AutomatePostCommentsResponseView(View):
+    template_name = 'accounts/automate_post_comments_response.html'
+    try:
+        app = FacebookApp.objects.first()
+        app_id = app.app_id
+        app_secret = app.app_secret
+        redirect_url = app.redirect_url
+    except:
+        app_id = '482847369816069'
+        app_secret = '11b994aa0b08dabbcb04c3b2ade775e7'
+        redirect_url = 'https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/'
+    def get(self, request, post_id, *args, **kwargs):
+        page = request.user.userprofile.facebookpage_set.get(id = post_id.split('_')[0])
+        graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
+        graph.access_token = page.access_token
+        post = graph.get_post_details(post_id)
+        print(post['created_time'])
+        # print(timezone.now())
+        # created_time = datetime.strptime(post['created_time'], "%Y-%m-%dT%H:%M:%S%z")
+        return render(request, self.template_name, {'post': post, 'page': page,})
+    def post(self, request, *args, **kwargs):
+        page = request.user.userprofile.facebookpage_set.get(id = request.POST['post_id'].split('_')[0])
+        post_id = request.POST['post_id'].split('_')[1]
+        try:
+            post = AutomatePostCommentsResponse.objects.get(post = post_id)
+            messages.success(request, 'An automation for this post is already exist')
+            return HttpResponseRedirect(reverse('accounts:facebook-profile'))
+        except:
+            post = AutomatePostCommentsResponse.objects.create(page = page, post = post_id, response = request.POST['response'],response_privetly = request.POST['response_privetly'], name = request.POST['automation'])
+            messages.success(request, 'Automation added successfully')
+            return HttpResponseRedirect(reverse('accounts:facebook-profile'))

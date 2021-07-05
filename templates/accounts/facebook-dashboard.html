@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-4 text-end">
                             {% comment %} <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a> {% endcomment %}
-                            <a role='btn' href="  " class="btn btn-primary addPost">Create Post</a>
+                            <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a>
                         </div>
                     </div>
                 </div>
@@ -63,8 +63,8 @@
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col-sm-3">
-                                                    {% comment %} <a href="{% url 'accounts:response' post.id %}" style='text-decoration: none; color: black'> {% endcomment %}
-                                                    <a href="" style='text-decoration: none; color: black'>
+                                                    <a href="{% url 'accounts:response' post.id %}" style='text-decoration: none; color: black'>
+                                                    {% comment %} <a href="" style='text-decoration: none; color: black'> {% endcomment %}
                                                         {% if post.full_picture %}
                                                             <img src=" {{ post.full_picture }} " alt="full picture" class='with-pic'>
                                                         {% else %}
@@ -74,8 +74,8 @@
                                                 </div>
                                                 <div class="col-sm-8 gy-2">
                                                     <div style='max-width: inherit;' class='table-data'>
-                                                        {% comment %} <a href=" {% url 'accounts:response' post.id %} " class=''> {% endcomment %}
-                                                        <a href="  " class=''>
+                                                        <a href=" {% url 'accounts:response' post.id %} " class=''>
+                                                        {% comment %} <a href="  " class=''> {% endcomment %}
                                                             <div style="height:100%;width:100%;">
                                                                 {{ post.message|linebreaksbr }}
                                                             </div>
@@ -94,26 +94,6 @@
                                 {% comment %} </div> {% endcomment %}
                             {% endfor %}
             {% comment %} </div> {% endcomment %}
-            <div class="card shadow-sm">
-                {% comment %} <div class="card m-3"> {% endcomment %}
-                    <div class="card-body ">
-                <div class="card-title recent">
-                </div>
-                        <div class="card-body">
-                            
-                            {% comment %} {% for page in pages %}
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div>{{ page.page_name }}</div>
-                                        <a href=" {% url 'accounts:posts' page.page_id %} ">Show posts</a>
-                                    </div>
-                                </div>
-                            {% endfor %} {% endcomment %}
-                        </div>
-                        <a href="https://graph.facebook.com/oauth/authorize?client_id=482847369816069&redirect_uri=https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/&scope=email,pages_manage_metadata,pages_manage_posts,pages_read_engagement,pages_read_user_content,pages_show_list,public_profile,pages_manage_engagement,pages_messaging">Add Facebook account</a>
-                    </div>
-                {% comment %} </div> {% endcomment %}
-            </div>
         </div>
         
 {% endblock content %}
