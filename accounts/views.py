@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.messages import views
+from django.db.models.fields import NullBooleanField
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.urls import reverse
@@ -108,10 +109,10 @@ class FacebookProfileView(LoginRequiredMixin,View):
             profile = UserProfile.objects.create(user = request.user)
 
         if profile.facebookpage_set.all().count() == 0: 
-            if  not profile.facebook_user_id == '':
-                return render(request, self.no_account)
-            else:
+            if  not profile.facebook_user_id == None:
                 return render(request, self.no_pages)
+            else:
+                return render(request, self.no_account)
         
         try:
             page_id = request.COOKIES['page_id']
