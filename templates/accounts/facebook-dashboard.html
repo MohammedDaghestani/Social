@@ -62,7 +62,8 @@
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col-sm-3">
-                                                    <a href="{% url 'accounts:response' post.id %}" style='text-decoration: none; color: black'>
+                                                    {% comment %} <a href="{% url 'accounts:response' post.id %}" style='text-decoration: none; color: black'> {% endcomment %}
+                                                    <a href="" style='text-decoration: none; color: black'>
                                                         {% if post.full_picture %}
                                                             <img src=" {{ post.full_picture }} " alt="full picture" class='with-pic'>
                                                         {% else %}
@@ -72,7 +73,8 @@
                                                 </div>
                                                 <div class="col-sm-8 gy-2">
                                                     <div style='max-width: inherit;' class='table-data'>
-                                                        <a href=" {% url 'accounts:response' post.id %} " class=''>
+                                                        {% comment %} <a href=" {% url 'accounts:response' post.id %} " class=''> {% endcomment %}
+                                                        <a href="  " class=''>
                                                             <div style="height:100%;width:100%;">
                                                                 {{ post.message|linebreaksbr }}
                                                             </div>
