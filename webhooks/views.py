@@ -36,7 +36,7 @@ class TestView(View):
                 return HttpResponse('This comment is from page')
             # comment_id = json.loads(request.body)['entry'][0]['changes'][0]['value']['comment_id']
             # post_id = json.loads(request.body)['entry'][0]['changes'][0]['value']['comment_id'].split('_')[0]
-            page = FacebookPageAccessToken.objects.get(page_id = data.PAGE_ID.value)
+            page = FacebookPage.objects.get(page_id = data.PAGE_ID.value)
             try:
                 automation = page.automatepostcommentsresponse_set.get(post = data.POST_ID.value)
                 graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, automation.response, page.page_access_token)
