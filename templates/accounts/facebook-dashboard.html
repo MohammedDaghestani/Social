@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Facebook{% endblock title %}
 {% block sidebar %}
-{% include 'main/sidebar.html' with active='facebook' p_id=page_id %}
+{% include 'main/sidebar.html' with active='facebook' %}
 {% endblock sidebar %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'main/css/facebook-profile-style.css' %}">
@@ -17,7 +17,7 @@
             <h1 class="h5">
                 <select name="page_id" class='form-select select' onchange='window.location.href=this.value;'>
                     {% for page in pages %}
-                        <option class='form-option' value=" {% url 'accounts:facebook-profile' page.page_id %} " {% if page_id == page.page_id %}selected{% endif %}>
+                        <option class='form-option' value=" {% url 'accounts:facebook-profile' %} " {% if page_id == page.page_id %}selected{% endif %}>
                         <div><img src="{{ page.pic_url }}" alt="Profile Picture"></div>
                         {{ page.page_name }}
                         </option>
