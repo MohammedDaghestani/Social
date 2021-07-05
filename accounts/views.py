@@ -36,13 +36,13 @@ class DashboardView(LoginRequiredMixin, View):
         except:
             profile = UserProfile.objects.create(user = request.user)
         
-        page = profile.facebookpage_set.first()
-        try:
-            page_id = request.session['page_id']
-        except:
-            page_id = request.session.get('page_id', page.id)
+        # page = profile.facebookpage_set.first()
+        # try:
+        #     page_id = request.session['page_id']
+        # except:
+            # page_id = request.session.get('page_id', page.id)
 
-        data = {'profile': profile, 'pages': profile.facebookpage_set.all(), 'page_id': page_id}
+        data = {'profile': profile, 'pages': profile.facebookpage_set.all()}
         return render(request, self.template_name,  data)
 
 class FacebookLoginView(LoginRequiredMixin, View):
