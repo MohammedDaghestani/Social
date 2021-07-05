@@ -36,12 +36,12 @@ class TestView(View):
                 return HttpResponse('This comment is from page')
             # comment_id = json.loads(request.body)['entry'][0]['changes'][0]['value']['comment_id']
             # post_id = json.loads(request.body)['entry'][0]['changes'][0]['value']['comment_id'].split('_')[0]
-            page = FacebookPage.objects.get(page_id = data.PAGE_ID.value)
+            page = FacebookPage.objects.get(id = data.PAGE_ID.value)
             try:
                 automation = page.automatepostcommentsresponse_set.get(post = data.POST_ID.value)
-                graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, automation.response, page.page_access_token)
+                graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, automation.response, page.access_token)
                 if automation.response_privetly != '':
-                    graph.reply_comments_privetly(data.PAGE_ID.value, data.SENDER.value, data.COMMENT_ID.value, automation.response_privetly, page.page_access_token)
+                    graph.reply_comments_privetly(data.PAGE_ID.value, data.SENDER.value, data.COMMENT_ID.value, automation.response_privetly, page.access_token)
                 return HttpResponse('Reply success')
             except:
                 return HttpResponse('Reply error')
