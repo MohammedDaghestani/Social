@@ -3,5 +3,6 @@
 
 
 $('#page_id').change(function() {
-    $.post('/accounts/facebook/', {'page_id': pages.value})    
+    // $.post('/accounts/facebook/', {'page_id': pages.value}) 
+    alert('test')
 })
