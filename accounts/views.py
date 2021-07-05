@@ -106,13 +106,17 @@ class FacebookProfileView(LoginRequiredMixin,View):
         try:
             page_id = request.COOKIES['page_id']
         except:
-            page = profile.facebookpage_set.first()
-            page_id = page.id
-            
-        graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
-        page = request.user.userprofile.facebookpage_set.get(id = page_id)
-        graph.access_token = page.access_token
-        return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpage_set.all(), 'page_id': page_id, 'posts': graph.get_posts(), 'page': page})
+            try:
+                page = profile.facebookpage_set.first()
+                page_id = page.id
+            except:
+                page_id = ''
+        if not page_id == '':
+            graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
+            page = request.user.userprofile.facebookpage_set.get(id = page_id)
+            graph.access_token = page.access_token
+            return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpage_set.all(), 'page_id': page_id, 'posts': graph.get_posts(), 'page': page})
+        return render(request, self.template_name, {'profile': profile})
 
 
 # class RemoveProfileView(View):
