@@ -17,7 +17,7 @@
             <h1 class="h5">
                 <select name="page_id" class='form-select select' onchange='window.location.href=this.value;'>
                     {% for page in pages %}
-                        <option class='form-option' value=" {% url 'accounts:facebook-profile' %} " {% if page_id == page.id %}selected{% endif %}>
+                        <option class='form-option' value=" {{ page.id }} " {% if page_id == page.id %}selected{% endif %}>
                         <div><img src="{{ page.pic_url }}" alt="Profile Picture"></div>
                         {{ page.name }}
                         </option>
@@ -114,4 +114,5 @@
                 {% comment %} </div> {% endcomment %}
             </div>
         </div>
+        <script src=" {% static 'main/js/facebook-dashboard.js' %} "></script>
 {% endblock content %}
