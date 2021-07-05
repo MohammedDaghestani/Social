@@ -15,7 +15,8 @@
         {% if pages %}
         <div class="btn-toolbar mb-2 mb-md-0">
             <h1 class="h5">
-                <select name="page_id" class='form-select select' onchange='window.location.href=this.value;'>
+                {% comment %} <select name="page_id" class='form-select select' onchange='window.location.href=this.value;'> {% endcomment %}
+                <select name="page_id" class='form-select select'>
                     {% for page in pages %}
                         <option class='form-option' value=" {{ page.id }} " {% if page_id == page.id %}selected{% endif %}>
                         <div><img src="{{ page.pic_url }}" alt="Profile Picture"></div>
