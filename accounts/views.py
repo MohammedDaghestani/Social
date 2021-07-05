@@ -75,7 +75,7 @@ class FacebookLoginView(LoginRequiredMixin, View):
             profile.save()
             for key, value in graph.get_pages().items():
                 try:
-                    FacebookPage.objects.get(page_id = value['id'],)
+                    FacebookPage.objects.get(id = value['id'],)
                 except:    
                     page = FacebookPage.objects.create(user_profile = profile, id = value['id'], access_token = value['access_token'], name = value['name'])
                     page.pic_url = graph.picture_url(value['id'], value['access_token'])
