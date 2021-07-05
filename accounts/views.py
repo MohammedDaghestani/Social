@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.messages import views
 from django.http import HttpResponseRedirect
+from django.http.response import HttpResponse
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -88,7 +89,9 @@ class FacebookLoginView(LoginRequiredMixin, View):
         # return render(request, 'accounts/facebook-info.html', {'data': context})
 
 class FacebookProfileView(LoginRequiredMixin,View):
-    template_name = 'accounts/facebook-dashboard.html'
+    template_name   = 'accounts/facebook-dashboard.html'
+    no_pages        = 'accounts/no-pages.html'
+    no_account      = 'accounts/no-account.html'
     try:
         app = FacebookApp.objects.first()
         app_id = app.app_id
@@ -103,6 +106,13 @@ class FacebookProfileView(LoginRequiredMixin,View):
             profile = UserProfile.objects.get(user = request.user) 
         except:
             profile = UserProfile.objects.create(user = request.user)
+
+        if profile.facebookpage_set.all().count() == 0: 
+            if  not profile.facebook_user_id == '':
+                return render(request, self.no_account)
+            else:
+                return render(request, self.no_pages)
+        
         try:
             page_id = request.COOKIES['page_id']
         except:

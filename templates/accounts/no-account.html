@@ -1,0 +1,28 @@
+{% extends 'accounts/base-profile.html' %}
+{% load static %}
+{% block title %}Facebook{% endblock title %}
+{% block sidebar %}
+{% include 'main/sidebar.html' with active='facebook' %}
+{% endblock sidebar %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'main/css/facebook-profile-style.css' %}">
+{% endblock styles %}
+{% block content %}
+{% comment %} {% block name %}Facebook: {% if profile.facebook_user_name %} {{ profile.facebook_user_name }} {% endif %}{% endblock name %} {% endcomment %}
+<br><br><br>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Facebook</h1>
+      </div>
+
+        <div class="container profile ">
+            <div class="card shadow-sm">
+                <div class="card-body ">
+                    <div class="row text-center pt-3" style='font-size: 1.3rem;'>
+                        <p>
+                            Please add a Facebook account to see pages here
+                        </p>
+                    </div>
+                </div>
+            </div>        
+{% endblock content %}
+                
