@@ -104,16 +104,20 @@ class FacebookProfileView(LoginRequiredMixin,View):
         app_id = '482847369816069'
         app_secret = '11b994aa0b08dabbcb04c3b2ade775e7'
         redirect_url = 'https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/'
-    def get(self, request, pk, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         try:
             profile = UserProfile.objects.get(user = request.user) 
         except:
             profile = UserProfile.objects.create(user = request.user)
-        # page = profile.facebookpageaccesstoken_set.first()
         # request.session.get('page_id', pk)
         # print(request.session())
-        request.session['page_id'] = pk
-        page_id = request.session['page_id']
+        try:
+            page_id = request.session['page_id']
+        except:
+            page = profile.facebookpage_set.first()
+            request.session['page_id'] = page.id
+
+
         print(page_id)
         graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
         page = request.user.userprofile.facebookpage_set.get(id = page_id)
@@ -123,7 +127,14 @@ class FacebookProfileView(LoginRequiredMixin,View):
         # }
         # return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpageaccesstoken_set.all(), 'page_id': page_id, 'posts': graph.graph_api('posts')['posts']['data'], 'page': page})
         return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpage_set.all(), 'page_id': page_id, 'posts': graph.get_posts(), 'page': page})
-
+    def post(self, request, *args, **kwargs):
+        profile = UserProfile.objects.get(user = request.user)
+        page_id = request.POST['page_id']
+        request.session['page_id'] = page_id
+        graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
+        page = request.user.userprofile.facebookpage_set.get(id = page_id)
+        graph.access_token = page.access_token
+        return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpage_set.all(), 'page_id': page_id, 'posts': graph.get_posts(), 'page': page})
 
 
 # class RemoveProfileView(View):
