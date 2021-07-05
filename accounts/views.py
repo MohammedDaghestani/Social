@@ -128,6 +128,8 @@ class FacebookProfileView(LoginRequiredMixin,View):
         # }
         # return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpageaccesstoken_set.all(), 'page_id': page_id, 'posts': graph.graph_api('posts')['posts']['data'], 'page': page})
         return render(request, self.template_name, {'profile': profile, 'pages': profile.facebookpage_set.all(), 'page_id': page_id, 'posts': graph.get_posts(), 'page': page})
+
+        
     def post(self, request, *args, **kwargs):
         profile = UserProfile.objects.get(user = request.user)
         page_id = request.POST['page_id']
