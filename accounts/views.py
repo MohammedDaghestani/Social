@@ -115,7 +115,8 @@ class FacebookProfileView(LoginRequiredMixin,View):
             page_id = request.session['page_id']
         except:
             page = profile.facebookpage_set.first()
-            request.session['page_id'] = page.id
+            page_id = page.id
+            request.session['page_id'] = page_id
 
 
         print(page_id)
