@@ -112,14 +112,17 @@ class FacebookProfileView(LoginRequiredMixin,View):
         # request.session.get('page_id', pk)
         # print(request.session())
         try:
-            page_id = request.session['page_id']
+            page_id = request.COOKIES['page_id']
         except:
             page = profile.facebookpage_set.first()
             page_id = page.id
-            request.session['page_id'] = page_id
+            # request.COOKIES['page_id'] = page_id
+            # request.session['page_id'] = page_id
+        
 
 
-        print(page_id)
+        # print(request.session['page_id'])
+        # print(request.COOKIES['page_id'])
         graph = FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
         page = request.user.userprofile.facebookpage_set.get(id = page_id)
         graph.access_token = page.access_token
