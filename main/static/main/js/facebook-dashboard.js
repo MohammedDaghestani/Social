@@ -1,6 +1,3 @@
-// pages.onchange = function() {change_page()};
-
-
 var e = document.getElementById('page_id').value;
 var csrf = document.getElementsByName('csrfmiddlewaretoken').value;
 $('#page_id').on('change', function() {
