@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 import json
 from accounts.facebookapi import FacebookGraph
 from accounts.models import FacebookPage
-
+import random
 
 
 verify_token = 'mhd'
@@ -42,7 +42,29 @@ class TestView(View):
                     replies = page.automatepostcommentsresponse_set.filter(post = data.POST_ID.value)
                 except:
                     replies = None
-                print(replies)
+                if replies != None:
+                    rep_with_words = ''
+                    reps_without_words = []
+                    for reply in replies:
+                        if len(reply.words) != 0:
+                            for word in reply.words:
+                                if data.MESSAGE.value.find(word) != -1:
+                                    rep_with_words = reply.id
+                        else:
+                            reps_without_words.append(reply.id)
+                    if rep_with_words != '':
+                        reply = page.automatepostcommentsresponse_set.get(id = rep_with_words)
+                        graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, reply.response, page.access_token)
+                    elif len(reps_without_words) != 0:
+                        if len(reps_without_words) > 1:
+                            reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
+                        else:
+                            reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[0])
+                        graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, reply.response, page.access_token)
+                        
+                            
+                
+
             try:
                 automation = page.automatepostcommentsresponse_set.get(post = data.POST_ID.value)
                 graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, automation.response, page.access_token)
