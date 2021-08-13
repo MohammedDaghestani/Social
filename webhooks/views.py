@@ -37,6 +37,12 @@ class TestView(View):
             # comment_id = json.loads(request.body)['entry'][0]['changes'][0]['value']['comment_id']
             # post_id = json.loads(request.body)['entry'][0]['changes'][0]['value']['comment_id'].split('_')[0]
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
+            if data.MESSAGE.value != None:
+                try:
+                    replies = page.automatepostcommentsresponse_set.filter(post = data.POST_ID.value)
+                except:
+                    replies = None
+                print(replies)
             try:
                 automation = page.automatepostcommentsresponse_set.get(post = data.POST_ID.value)
                 graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, automation.response, page.access_token)
