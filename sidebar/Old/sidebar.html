@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light shadow" aria-label="Eighth navbar example">
+    <div class="container">
+      <a class="navbar-brand" href="#">Social Media</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarsExample07">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'main:index' %} ">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'accounts:register' %} ">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'accounts:login' %} ">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <nav class='sidebar shadow-lg'>
+    <div class='sidebar-section'>
+      <h1 class='h7 form-text'>Account</h1>
+      <div class='sidebar-section-item'>
+        <i class="fas fa-th"></i>
+        <a href="">Dashboard</a>
+      </div>
+      <div class='sidebar-section-item'>
+        <i class="fas fa-user"></i>
+        <a href="">Profile</a>
+      </div>
+    </div>
+    <div class='sidebar-section'>
+      <h1 class='h7 form-text'>Social Media</h1>
+      <div class='sidebar-section-item'>
+        <div class='submenu'>
+          <div class="submenu-title">
+          <i class="fab fa-facebook-square"></i>
+            <div>Facebook</div>
+            <i class="fa fa-1x fa-chevron-right rotate"></i>
+          </div>
+          <div class='submenu-body'>
+            <div class="vertical"></div>
+            <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class='sidebar-section-item'>
+        <div class='submenu'>
+          <div class="submenu-title">
+            <i class="fab fa-facebook-messenger"></i>
+            <div>Messenger</div>
+            <i class="fa fa-1x fa-chevron-right rotate"></i>
+          </div>
+          <div class='submenu-body'>
+            <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class='sidebar-section-item'>
+        <div class='submenu'>
+          <div class="submenu-title">
+            <i class="fab fa-instagram-square"></i>
+            <div>Instagram</div>
+            <i class="fa fa-1x fa-chevron-right rotate"></i>
+          </div>
+          <div class='submenu-body'>
+            <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

@@ -129,11 +129,16 @@ class FacebookPage(models.Model):
 
 
 class AutomatePostCommentsResponse(models.Model):
+    # id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    id = models.UUIDField(primary_key=True ,default=uuid.uuid4, verbose_name=(_('ID')), help_text=_('Unique ID for the reply'))
     page = models.ForeignKey(FacebookPage, on_delete=models.CASCADE)
     post = models.CharField(_("post id"), max_length=255)
+    words = models.JSONField(blank = True, null= True)
     response = models.CharField(max_length=500)
-    response_privetly = models.CharField(max_length=1000, blank=True, null=True)
-    name = models.CharField(_('automate name'), max_length=255)
+    private_response = models.CharField(max_length=2000, blank=True, null=True)
+    # name = models.CharField(_('automate name'), max_length=255)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
+
+    

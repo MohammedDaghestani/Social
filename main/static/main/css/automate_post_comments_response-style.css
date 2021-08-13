@@ -1,4 +1,10 @@
-.pic{
+.container-main{
+    position: relative;
+    top: 5rem;
+    font-size: 1rem;
+    /* padding: 0 .6rem; */
+}
+.page-pic{
     border: 5px whitesmoke solid;
     border-radius: 5rem;
     width: fit-content;
@@ -6,33 +12,155 @@
     display: inline-block;   
     box-shadow: 2px 2px 20px 1px rgba(0, 0, 255, .1);
 }
-.pic img{
+.page-pic img{
     width: 40px;
     border-radius: 5rem;
 }
-.card{
-    border-radius: 0.5rem;
+.post-pictrue{
+    max-width: 100%;
 }
-.post{
-    max-width: 35rem;
-    margin: auto;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+.page-info{
+    float: left;
 }
-.h7{
+.replies{ 
+    position: sticky;
+    top: 5rem;
+    height: fit-content;
+    margin-bottom: 1.5rem;
+}
+.page-info .form-text{
+    font-size: .78rem;
+    display: flex;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+.dio{
+    display: flex;
+    float: left;
+}
+.post-card{
+    margin-bottom: 2rem;
+}
+.replies .card{
+    margin-bottom: .5rem;
+}
+.replies-title{
+    /* font-weight: bold; */
+    font-size: 1.2rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.fa-plus{
+    position:  relative;
+    top: 0;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    color: #0d6efd;
+}
+.fa-plus:hover{
+    /* top: -3px; */
+    font-size: 1.1rem;
+}
+.word,
+.reply-word{
+    float: left;
+    display: block;
+    width: fit-content;
+    padding: .3rem 1rem;
+    border-radius: 1rem;
+    background-color: rgb(235, 235, 235);
+    margin: .2rem, .4rem, .4rem 0;
+    margin-right: .4rem;
+    margin-bottom: .4rem;
+    transition: all 150ms ease;
+    /* position: relative; */
+}
+.word::after{
+    padding-left: .4rem;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f00d';
+    cursor:pointer;
+    transition: all 150ms ease;
+}
+.word:hover::after{
+    color: red;
+}
+
+.word:hover{
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+
+}
+.card-body-reply{
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    top: -.8rem;
     margin-bottom: 0;
     padding-bottom: 0;
 }
-.post-pic{
-    max-width: 100%;
-    /* border: 5px black solid; */
+.post-col{
+    position: sticky;
+    align-self: flex-start;
+    /* bottom: 2rem; */
+    top: 5rem;
+    transition: all 0.2s ease;
 }
-.frm{
-    padding: 0rem 2rem;
+#add_reply> .card-body{
+    padding-top: 0;
+    /* background-color: aqua; */
 }
-/* .dio{
-    display: block;
-} */
-.page{
-    float: left;
+#info-title{
+    font-size: 1.2rem;
+}
+#info-title img{
+    max-width: 2rem;
+}
+#info-text{
+    margin-top: 0;
+    padding-top: 0;
+}
+.reply-privately img, 
+.reply-with img{
+    max-width: 1.5rem;
+}
+.reply-with,
+.reply-privately{
+    padding: .5rem 1rem;
+}
+.grow{
+    transition: all .3s ease-in-out;
+}
+.grow:hover{
+    transform: scale(1.01);
+    box-shadow:0 1rem 3rem rgba(0,0,0,.175)
+}
+.reply-btns{
+    margin-top: .5rem;
+}
+
+
+#ModalLabel::before{
+    color: red;
+    font-size: 1.6rem;
+    content: '\26A0';
+    margin-right: .5rem;
+    position: relative;
+    top: .1rem;
+}
+
+#error-add-reply-alert{
+    margin-bottom: .5rem;
+}
+
+@media (max-width:992px){
+    .post-col{
+        position: inherit;
+        align-self: inherit;
+    }
+    .replies{
+        margin-top: -1.5rem;
+    }
 }

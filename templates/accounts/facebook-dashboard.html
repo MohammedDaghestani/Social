@@ -2,16 +2,17 @@
 {% load static %}
 {% block title %}Facebook{% endblock title %}
 {% block sidebar %}
-{% include 'main/sidebar.html' with active='facebook' %}
+{% include 'main/sidebar.html' with active='facebook-posts' %}
 {% endblock sidebar %}
+
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'main/css/facebook-profile-style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/facebook-dashboard-style.css' %}">
 {% endblock styles %}
 {% block content %}
 {% comment %} {% block name %}Facebook: {% if profile.facebook_user_name %} {{ profile.facebook_user_name }} {% endif %}{% endblock name %} {% endcomment %}
-<br><br><br>
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Facebook</h1>
+<div class="container-main">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Facebook Posts</h1>
         {% if pages %}
         <div class="btn-toolbar mb-2 mb-md-0">
             <h1 class="h5">
@@ -19,7 +20,7 @@
                 <select name="page_id" class='form-select select' id='page_id'>
                     {% for page in pages %}
                         <option class='form-option' value=" {{ page.id }} " {% if page_id == page.id %}selected{% endif %}>
-                        <div><img src="{{ page.pic_url }}" alt="Profile Picture"></div>
+                        {% comment %} <div><img src="{{ pic_url }}" alt="Profile Picture"></div> {% endcomment %}
                         {{ page.name }}
                         </option>
                     {% endfor %}
@@ -27,73 +28,128 @@
             </h1>
         </div>
         {% endif %}
-      </div>
-
-        <div class="container profile">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <div class="card shadow-sm page">
-                <div class="card-body">
-                    <div class="pic shadow">
-                        <img src="{{ page.pic_url }}" alt="Profile Picture">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div><h1 class="h5"><b>{{ page.name }}</b></h1></div>
-                            <div class='lead'>Facebook Page</div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="card shadow-sm page border-left-blue">
+                        <div class="card-body">
+                            <div class="pic shadow">
+                                <img src="{{ pic_url }}" alt="Profile Picture">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div><h1 class="h5"><b>{{ page.name }}</b></h1></div>
+                                    <div class='lead'>Facebook Page</div>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    {% comment %} <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a> {% endcomment %}
+                                    <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 text-end">
-                            {% comment %} <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a> {% endcomment %}
-                            <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a>
+                    </div>
+                    <div class="card shadow-sm posts">
+                        <div class="card-title">
+                            <button class="posts-buttons buttons-active" id='published'>
+                                Published
+                            </button>
+                            <button class="posts-buttons" id='scheduled'>
+                                Scheduled
+                            </button>
+                            <hr>
                         </div>
+                        <div class="card-body">
+                            <div class="tools">
+                                
+                                <div class="input-group rounded">
+                                        <i class="fas fa-search"></i>
+                                    <input type="search" id='search' class="form-control rounded" placeholder="Search by post ID" aria-label="Search" aria-describedby="search-addon" />
+                                </div>
+                                <div class="lifetime">
+                                    <select name="lifetime" class='form-select lifetime-select' id='lifetime'>
+                                        <option class='form-option' value="lifetime">
+                                            Lifetime
+                                        </option>
+                                        <option class='form-option' value="today">
+                                            Today
+                                        </option>
+                                        <option class='form-option' value="yesterday">
+                                            Yesterday
+                                        </option>
+                                        <option class='form-option' value="last7">
+                                            Last 7 days 
+                                        </option>
+                                        <option class='form-option' value="last14">
+                                            Last 14 days 
+                                        </option>
+                                        <option class='form-option' value="last28">
+                                            Last 28 days 
+                                        </option>
+                                        <option class='form-option' value="thisMonth">
+                                            This Month
+                                        </option>
+                                        <option class='form-option' value="thisYear">
+                                            This Year
+                                        </option>
+                                    </select>   
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="list-group">
+                                {% for post in posts %}
+                                    <a href=" {% url 'accounts:response' post.id %} " class="list-group-item list-group-item-action">
+                                        {% if post.full_picture %}
+                                            <div class="post-pic">
+                                                <img src=" {{ post.full_picture }} " alt="full picture" class='with-pic'>
+                                            </div>
+                                        {% else %}
+                                            <div class='non-pic post-pic'><b>Aa</b></div>
+                                        {% endif %}
+                                        <div class="data">
+                                            <div class='table-data'> 
+                                                {{ post.message|linebreaksbr }}
+                                            </div>
+                                        </div>
+                                        <div class='form-text date'>
+                                            {{ post.created_time }}
+                                            {% comment %} <a href="{{ post.permalink_url }}" target='blank'>Show post on Facebook</a> {% endcomment %}
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                {% comment %} <a href="" class='more list-group-item list-group-item-secondary'>Load more posts</a> {% endcomment %}
+                                {% comment %} <button class="more list-group-item list-group-item-secondary" id='loadMore' {% if not next %}style='display:none;'{% endif %}>Load more</button> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                {% comment %} </div> {% endcomment %}
+            </div>
+            <div class="col-md-4 insights stik">
+                <div class="card shadow-sm info">
+                    test test test
+                </div>
+                <div class="card border-left-green">
+                    <div class="card-title">
+                        <h1 class="h5"><b>Insights</b></h1>
+                    </div>
+                    <div class="card-body">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nesciunt reprehenderit consequuntur molestias assumenda vero nemo in necessitatibus asperiores? Dicta quae iure aliquam. Voluptate vel placeat, architecto eum id ut?</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas excepturi perferendis impedit magnam maxime provident necessitatibus aspernatur ipsa aliquam voluptatibus quidem vel tempore deleniti, temporibus, officia omnis id, quia magni?</p>
                     </div>
                 </div>
             </div>
-            {% comment %} <div class="container"> {% endcomment %}
-                <div class='recent'>Recent Posts</div>
-                            {% for post in posts %}
-                                {% comment %} <div class="row"> {% endcomment %}
-                                    <div class="card post">
-                                        <div class="card-body">
-                                            <div class="row align-items-center">
-                                                <div class="col-sm-3">
-                                                    <a href="{% url 'accounts:response' post.id %}" style='text-decoration: none; color: black'>
-                                                    {% comment %} <a href="" style='text-decoration: none; color: black'> {% endcomment %}
-                                                        {% if post.full_picture %}
-                                                            <img src=" {{ post.full_picture }} " alt="full picture" class='with-pic'>
-                                                        {% else %}
-                                                            <div class='non-pic'>Aa</div>
-                                                        {% endif %}
-                                                    </a>
-                                                </div>
-                                                <div class="col-sm-8 gy-2">
-                                                    <div style='max-width: inherit;' class='table-data'>
-                                                        <a href=" {% url 'accounts:response' post.id %} " class=''>
-                                                        {% comment %} <a href="  " class=''> {% endcomment %}
-                                                            <div style="height:100%;width:100%;">
-                                                                {{ post.message|linebreaksbr }}
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <div class='form-text'>
-                                                        {{ post.created_time }}
-                                                    </div>
-                                                    <div>
-                                                        <a href="{{ post.permalink_url }}" target='blank'>Show post on Facebook</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% comment %} </div> {% endcomment %}
-                            {% endfor %}
-            {% comment %} </div> {% endcomment %}
         </div>
-        
+    </div>
+</div>
 {% endblock content %}
+{% block scripts %}
+    <script src=" {% static 'main/js/facebook-dashboard.js' %} "></script>
+{% endblock scripts %}

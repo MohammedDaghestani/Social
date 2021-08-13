@@ -1,37 +1,65 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse shadow navbar-collapse">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column nav-pills" id='insert'>
-                        <li id='insert-before' class="nav-item">
-                            <a class="nav-link {% if active == 'dashboard' %}text-light active{% endif %}" aria-current="page" href=" {% url 'accounts:dashboard' %} ">
-                            {% comment %} <span data-feather="home"></span> {% endcomment %}
-                            Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            {% comment %} <a class="nav-link {% if active == 'facebook' %}text-light active{% endif %}" href=" {% url 'accounts:facebook-profile' p_id %} "> {% endcomment %}
-                            <a class="nav-link {% if active == 'facebook' %}text-light active{% endif %}" href=" {% url 'accounts:facebook-profile' %} ">
-                            {% comment %} <span data-feather="file"></span> {% endcomment %}
-                            Facebook Pages
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="#">
-                            {% comment %} <span data-feather="shopping-cart"></span> {% endcomment %}
-                            Facebook Groups
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            {% comment %} <span data-feather="users"></span> {% endcomment %}
-                            Facebook Messenger
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            {% comment %} <span data-feather="bar-chart-2"></span> {% endcomment %}
-                            Instagram
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+{% comment %} <div class="sidebar-full"></div> {% endcomment %}
+
+  <nav class='sidebar shadow expended'>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title form-text">
+        Account
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fas fa-th" {% if active == 'dashboard' %}style='color: #0d6efd;'{% endif %}></i>
+          <a href=" {% url 'accounts:dashboard' %} " {% if active == 'dashboard' %}style='color: #0d6efd;'{% endif %}>Dashboard</a>
+        </div>
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fas fa-user"></i>
+          <a href="">Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title form-text">
+        Social Media
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title {% if active == 'facebook-posts' %}active{% endif %}" id='facebook'>
+          <i class="fab fa-facebook-square {% if active == 'facebook-posts' %}active{% endif %}"></i>
+          Facebook
+          <i class="fa fa-1x fa-chevron-right rotate {% if active == 'facebook-posts' %}down{% endif %}"></i>
+        </div>
+        <div class="sidebar-section-item-body" {% if active == 'facebook-posts' %}style='display: block;'{% endif %}>
+          <ul>
+              <li {% if active == 'facebook-posts' %}style='border-left: 2px solid #0d6efd;'{% endif %}><a href=" {% url 'accounts:facebook-profile' %} " {% if active == 'facebook-posts' %}style='color: #0d6efd;'{% endif %}>Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fab fa-facebook-messenger"></i>
+          Messenger
+          <i class="fa fa-1x fa-chevron-right rotate"></i>
+        </div>
+        <div class="sidebar-section-item-body">
+          <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fab fa-instagram-square"></i>
+          Instagram
+          <i class="fa fa-1x fa-chevron-right rotate"></i>
+        </div>
+        <div class="sidebar-section-item-body">
+          <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>

@@ -10,43 +10,43 @@
     {% comment %} <link rel="stylesheet" href="{% static 'main/css/profile-style.css' %}"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'main/css/dashboard-style.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/sidebar.css' %}">
     {% block styles %}{% endblock styles %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light shadow" aria-label="Eighth navbar example">
-    <div class="container">
-      <a class="navbar-brand" href="/">Social Media</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" id='toogler'>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse justify-content-end" >
-        <ul class="navbar-nav mb-lg-0" id='nav'>
-            <li id='toggleItem' class="nav-item">
-                <a class="nav-link active" aria-current="page" href=" {% url 'main:index' %} ">Home</a>
+  <nav class="navbar fixed-top navbar-light bg-light shadow">
+    <div class="container-fluid justify-content-end">
+      <a class="navbar-brand" href="#">Social Media</a>
+      <ul class="nav ">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href=" {% url 'main:index' %} ">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href=" {% url 'accounts:logout' %} ">Logout</a>
+              <a class="nav-link" href=" {% url 'accounts:login' %} ">Logout</a>
             </li>
-        </ul>
-      </div>
+            <li class="nav-item">
+              <i class="fas fa-bars toggler" id='toggler'></i>
+            </li>
+          </ul>
     </div>
   </nav>
-
+    {% block sidebar %}{% endblock sidebar %}
     <div class="container-fluid">
-        <div class="row">
-            {% block sidebar %}{% endblock sidebar %}
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 {% block content %}{% endblock content %}
+        {% comment %} <div class="row">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             </main>
     
-        </div>
+        </div> {% endcomment %}
     </div>
-    {% block scripts %}{% endblock scripts %}
-    <script src=" {% static 'main/js/bootstrap.bundle.min.js' %} "></script>
     <script src=" {% static 'main/js/jquery-3.6.0.js' %} "></script>
     <script src=" {% static 'main/js/jquery-3.6.0.min.js' %} "></script>
+    <script src=" {% static 'main/js/bootstrap.bundle.min.js' %} "></script>
+    <script src=" {% static 'main/js/bootstrap.bundle.js' %} "></script>
     <script src=" {% static 'main/js/profile.js' %} "></script>
-    <script src=" {% static 'main/js/facebook-dashboard.js' %} "></script>
+    <script src=" {% static 'main/js/sidebar.js' %} "></script>
+    {% block scripts %}{% endblock scripts %}
 </body>
 </html>

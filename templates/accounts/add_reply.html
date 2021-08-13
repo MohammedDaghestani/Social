@@ -1,0 +1,33 @@
+{% load static %}
+<div class="card grow border-left-green" id='{{ id }}'>
+    <div class="card-body">
+        <div id="reply-words-container">
+            {% for word in words %}
+                {% if word != '' %}
+                <div class="reply-word">
+                    {{ word }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-body card-body-reply">
+        {% if reply != '' %}
+        <div class="reply-with">
+            <img src=" {% static 'main/imgs/reply.png' %} " alt="">
+            {{ reply }} 
+        </div>
+        {% endif %}
+        {% if private_reply != '' %}
+        <div class="reply-privately">
+            <img src=" {% static 'main/imgs/messenger-reply.png' %} " alt="">
+            {{ private_reply }}
+        </div>
+        {% endif %}
+        <div class="reply-btns">
+            <button class="btn btn-outline-primary edit">Edit</button>
+            <button class="btn btn-outline-danger delete" data-bs-toggle='modal' data-bs-target='#delete-reply-modal'>Delete</button>
+        </div>
+    </div>
+</div>
+

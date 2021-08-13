@@ -1,0 +1,146 @@
+html, body{
+    height: 100%;
+    
+}
+body{
+    margin-left: 15rem;
+    background-color: whitesmoke;
+    transition: all 200ms ease;
+}
+.full{
+    margin-left: 0;
+}
+.sidebar{
+    position: fixed;
+    left: 0rem;
+    height: 100%;
+    padding-top: 4rem;
+    padding-left: 1rem;
+    width: 15rem;
+    background-color: white;
+    transition: all 200ms linear;
+    z-index: 996;
+}
+.expended{
+    left: 0;
+}
+.sidebar-section{
+    margin-bottom: 2rem;
+}
+.sidebar-section-title{
+    font-size: 1rem;    
+}
+.sidebar-section-item{
+    margin: .5rem;
+    padding: .1rem;
+}
+.sidebar-section-item-title{
+    justify-content: center;
+    cursor: pointer;
+}
+.sidebar-section-item-title a{
+    text-decoration: none;
+    color: black;
+}
+.sidebar-section-item-body{
+    display: none;
+}
+.sidebar-section-item-body ul{
+    margin: 0rem;
+    padding: .4rem;
+}
+.sidebar-section-item-body li{
+    padding: .3rem 0rem .3rem 1.5rem;
+    border-left: 2px solid rgb(209, 202, 202);
+}
+.sidebar-section-item-body a{
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar-section-item-body li{
+    list-style: none;
+}
+i{
+    padding-right: .8rem;
+    color: rgb(165, 164, 164);
+}
+.fa-chevron-right{
+    float: right;
+    padding-top: .2rem;
+}
+.rotate{
+    -moz-transition: all 2s ease;
+    -webkit-transition: all 2s ease;
+    transition: all 200ms ease;
+}
+.rotate.down{
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(90deg);
+    padding-top: 1rem;
+}
+.toggler{
+    position: absolute;
+    left: 2rem;
+    top: .3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5rem;
+    height: 2.7rem;
+    width: 2.7rem;
+    text-align: center;
+    padding-top: .9rem;
+    padding-left: 0.8rem;
+}
+
+.toggler:hover{
+    background-color: rgb(214, 214, 214);
+    color: rgb(100, 100, 100);
+}
+.navbar-brand{
+    float: left;
+    left: 5rem;
+    position: fixed;
+    padding-top: 0rem;
+}
+
+
+@media (max-width: 767.98px) {
+    .navbar-brand {
+      left: 1rem;
+    }
+    .toggler{
+        position: inherit;
+        left: auto;
+        top: auto;
+    }
+    .sidebar{
+        left: -15rem;
+        display: none;
+    }
+    body{
+        margin-left: 0;
+    }
+    .shadow-lg{
+        box-shadow: none;
+    }
+    
+}
+.shadow-lg{
+    box-shadow:0 1rem 3rem rgba(0,0,0,.175)
+}
+.sidebar-full{
+    position: fixed;
+    top:0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    height: 100%;
+    margin-left: 15rem;
+    background-color: black;
+    opacity: 0;
+    z-index: 996;
+    transition: all 200ms linear;
+}

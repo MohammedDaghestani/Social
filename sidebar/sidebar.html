@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+<div class="sidebar-full"></div>
+<nav class="navbar fixed-top navbar-light bg-light shadow">
+  <div class="container-fluid justify-content-end">
+    <a class="navbar-brand" href="#">Social Media</a>
+    <ul class="nav ">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href=" {% url 'main:index' %} ">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'accounts:login' %} ">Logout</a>
+          </li>
+          <li class="nav-item">
+            <i class="fas fa-bars toggler" id='toggler'></i>
+          </li>
+        </ul>
+  </div>
+</nav>
+  <nav class='sidebar shadow-lg expended'>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title form-text">
+        Account
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fas fa-th"></i>
+          <a href="">Dashboard</a>
+        </div>
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fas fa-user"></i>
+          <a href="">Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title form-text">
+        Social Media
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fab fa-facebook-square"></i>
+          Facebook
+          <i class="fa fa-1x fa-chevron-right rotate"></i>
+        </div>
+        <div class="sidebar-section-item-body">
+          <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fab fa-facebook-messenger"></i>
+          Messenger
+          <i class="fa fa-1x fa-chevron-right rotate"></i>
+        </div>
+        <div class="sidebar-section-item-body">
+          <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="sidebar-section-item">
+        <div class="sidebar-section-item-title">
+          <i class="fab fa-instagram-square"></i>
+          Instagram
+          <i class="fa fa-1x fa-chevron-right rotate"></i>
+        </div>
+        <div class="sidebar-section-item-body">
+          <ul>
+              <li><a href="">Posts</a></li>
+              <li><a href="">Groups</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <br><br><br>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard | {{ user.get_full_name }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+        <div class="container profile">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Posts traggered
+                        </div>
+                        <div class="card-body text-center">
+                            50
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Comments replied
+                        </div>
+                        <div class="card-body text-center">
+                            3515
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Replied privetly
+                        </div>
+                        <div class="card-body text-center">
+                            35
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-title text-center mt-2">
+                            Posts shares
+                        </div>
+                        <div class="card-body text-center">
+                            151
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row pt-4">
+                <h4>
+                    Facebook Account
+                </h4>
+                {% if profile.facebook_user_id %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-1 text-center">
+                                <div class="pic shadow">
+                                    <img src=" {{ profile.pic_url }} " alt="Facebook profile picture" >
+                                </div>
+                            </div>
+                            <div class="col-md-8 name px-4">
+                                <h5>{{profile.facebook_user_name}}</h5>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <a href="  ">Reconnect account</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center pt-3">
+                    <a href="https://graph.facebook.com/oauth/authorize?client_id=482847369816069&redirect_uri=https://mhddaghestani.pythonanywhere.com/accounts/facebook-login/&scope=email,pages_manage_metadata,pages_manage_posts,pages_read_engagement,pages_read_user_content,pages_show_list,public_profile,pages_manage_engagement,pages_messaging">Add Facebook account</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card shadow-sm page">
+                <div class="card-body">
+                    <div class="pic shadow">
+                        <img src="{{ page.pic_url }}" alt="Profile Picture">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div><h1 class="h5"><b>{{ page.name }}</b></h1></div>
+                            <div class='lead'>Facebook Page</div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            {% comment %} <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a> {% endcomment %}
+                            <a role='btn' href=" {% url 'accounts:add-post' %} " class="btn btn-primary addPost">Create Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} <div class="container"> {% endcomment %}
+                <div class='recent'>Recent Posts</div>
+                            {% for post in posts %}
+                                {% comment %} <div class="row"> {% endcomment %}
+                                    <div class="card post">
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-sm-3">
+                                                    <a href="{% url 'accounts:response' post.id %}" style='text-decoration: none; color: black'>
+                                                    {% comment %} <a href="" style='text-decoration: none; color: black'> {% endcomment %}
+                                                        {% if post.full_picture %}
+                                                            <img src=" {{ post.full_picture }} " alt="full picture" class='with-pic'>
+                                                        {% else %}
+                                                            <div class='non-pic'>Aa</div>
+                                                        {% endif %}
+                                                    </a>
+                                                </div>
+                                                <div class="col-sm-8 gy-2">
+                                                    <div style='max-width: inherit;' class='table-data'>
+                                                        <a href=" {% url 'accounts:response' post.id %} " class=''>
+                                                        {% comment %} <a href="  " class=''> {% endcomment %}
+                                                            <div style="height:100%;width:100%;">
+                                                                {{ post.message|linebreaksbr }}
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class='form-text'>
+                                                        {{ post.created_time }}
+                                                    </div>
+                                                    <div>
+                                                        <a href="{{ post.permalink_url }}" target='blank'>Show post on Facebook</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% comment %} </div> {% endcomment %}
+                            {% endfor %}
+            {% comment %} </div> {% endcomment %}
+        </div>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

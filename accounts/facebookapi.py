@@ -13,6 +13,7 @@ class FacebookGraph:
     access_token = None
     error = None
     user_id = None
+    next_paging= None
     def __init__(self, app_id, app_secret, redirect_url):
         self.app_id = app_id
         self.app_secret = app_secret
@@ -144,16 +145,56 @@ class FacebookGraph:
         return req.json()['data']['url']
 
 
-    def get_posts(self):
+    def get_posts(self, limit=10, since=0):
+        if since == 0:
+            data = {
+                'fields': 'id,message,created_time,full_picture,permalink_url',
+                'limit': limit,
+                'access_token': self.access_token,
+            }
+            req = requests.get(self.graph_url + 'me/posts', data)
+            try:
+                self.next_paging = req.json()['paging']['next']
+            except:
+                self.next_paging = None
+            res = req.json()['data']
+        else:
+            data = {
+                'fields': 'id,message,created_time,full_picture,permalink_url',
+                'since': since,
+                'access_token': self.access_token,
+            }
+            # res = {}
+            req = requests.get(self.graph_url + 'me/posts', data)
+            res = req.json()['data']
+            try:
+                nxt = req.json()['paging']['next']
+            except:
+                nxt = None
+            while(nxt != None):
+                r = requests.get(nxt)
+                res.extend(r.json()['data'])
+                try: 
+                    nxt = r.json()['paging']['next']
+                except:
+                    break
+        for post in res:
+            # print(post, end='\n')
+            post['created_time'] = datetime.strptime(post['created_time'], "%Y-%m-%dT%H:%M:%S%z")
+        return res
+
+
+    def get_scheduled_posts(self):
         data = {
             'fields': 'id,message,created_time,full_picture,permalink_url',
             'access_token': self.access_token,
         }
-        req = requests.get(self.graph_url + 'me/posts', data)
+        req = requests.get(self.graph_url + 'me/scheduled_posts', data)
         res = req.json()['data']
         for post in res:
             post['created_time'] = datetime.strptime(post['created_time'], "%Y-%m-%dT%H:%M:%S%z")
         return res
+
 
     def get_post_details(self, post_id):
         data = {

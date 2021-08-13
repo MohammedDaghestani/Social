@@ -2,75 +2,157 @@
 {% load static %}
 {% block title %}Facebook{% endblock title %}
 {% block sidebar %}
-{% include 'main/sidebar.html' with active='facebook' p_id=page.page_id %}
+{% include 'main/sidebar.html' with active='facebook-posts' %}
 {% endblock sidebar %}
+
+
 {% block styles %}
     <link rel="stylesheet" href="{% static 'main/css/automate_post_comments_response-style.css' %}">
 {% endblock styles %}
 
 
 {% block content %}
-{% comment %} <br><br><br> {% endcomment %}
-<div class="container">
-    <div class="card post shadow">
-        <div class="card-title mt-3 mx-3 align-items-center ">
-            <div class='dio'>
-                <div class="page">
-                    <span class="pic shadow-sm ">
-                        <img src="{{ page.pic_url }}" alt="Profile Picture">
-                    </span>
-                </div>
-                <div class="page">
-                    <div class="h7">{{ page.page_name }}</div>
-                    {% if post.admin_creator.name %}
-                        <div class='form-text'>Published by {{ post.admin_creator.name }}</div>
-                    {% endif %}
-                    <div class='form-text'>{{ post.created_time }}</div>
+<div class="container-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 post-col">
+                <div class="card post-card shadow">
+                    <div class="card-title mt-3 mx-3 align-items-center ">
+                        <div class='dio'>
+                            <div class="page-info">
+                                <span class="page-pic shadow-sm ">
+                                    <img src="{{ pic_url }}" alt="Profile Picture">
+                                </span>
+                            </div>
+                            <div class="page-info">
+                                <div class="">{{ page.name }}</div>
+                                {% if post.admin_creator.name %}
+                                    <div class='form-text'>Published by {{ post.admin_creator.name }}. &nbsp</div>
+                                {% endif %}
+                                <div class='form-text'> {{ post.created_time }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            {{ post.message|linebreaks }}
+                        </div>
+                        {% if post.full_picture %}
+                            <div class='container text-center'>
+                                <img class='post-pictrue' src=" {{ post.full_picture }} " alt="post picture">
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-            {% comment %} <div class="row">
-                <div class="col-sm-1">
-                    <span class="pic shadow-sm">
-                        <img src="{{ page.pic_url }}" alt="Profile Picture">
-                    </span>
-                </div>
-                <div class="col-sm">
-                    <div class="h7">{{ page.page_name }}</div>
-                    <div class='form-text'>Published by {{ post.admin_creator.name }}</div>
-                </div>
-            </div> {% endcomment %}
-        </div>
-        <div class="card-body">
-            <div>
-                {{ post.message|linebreaks }}
-            </div>
-            {% if post.full_picture %}
-                <div class='container text-center'>
-                    <img class='post-pic' src=" {{ post.full_picture }} " alt="post picture">
-                </div>
-            {% endif %}
-        </div>
-        <div class="container frm">
-        <form action="" method="post" class='mb-4'>
-        {% csrf_token %}
-        <div class='mb-2'>
-            <label for="response">Enter the response</label>
-            <input class='form-control' type="text" name='response' id='response'>
-        </div>
-        <div class='mb-2'>
-            <label for="response_privetly">Enter the response (Privetly)</label>
-            <input class='form-control' type="text" name='response_privetly' id='response_privetly'>
-        </div>
-        <div class='mb-2'>
-            <label for="automation">Automation name</label>
-            <input class='form-control' type="text" name="automation" id="automation">
-        </div>
-        <input type="hidden" name="post_id" value='{{ post.id }}'>
-        <button type="submit" class="btn btn-primary mt-2 ">Submit</button>
-        </form>
-        </div>
 
+
+            <div class="col-lg-5 replies">
+                {% if not replies %}
+                    <div class="card grow border-left-green" id='recommendations'>
+                        <div class="card-title pt-3 px-2" id='info-title'>
+                            <img src=" {% static 'main/imgs/star.svg' %} " alt="">
+                            Recommendations
+                        </div>
+                        <div class="card-body" id='info-text'>
+                            Add some replies to this post 
+                        </div>
+                    </div>
+                {% endif %}
+                <div id='replies-container'>
+                    {% for rep in replies %}  
+                        <div class="card grow border-left-blue" id='{{ rep.id }}'>
+                            <div class="card-body">
+                                <div id="reply-words-container">
+                                    {% for word in rep.words %}
+                                        {% if word != '' %}
+                                        <div class="reply-word">
+                                            {{ word }}
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="card-body card-body-reply">
+                                {% if rep.response != '' %}
+                                <div class="reply-with">
+                                    <img src=" {% static 'main/imgs/reply.png' %} " alt="">
+                                    {{ rep.response }} 
+                                </div>
+                                {% endif %}
+                                {% if rep.private_response %}
+                                <div class="reply-privately">
+                                    <img src=" {% static 'main/imgs/messenger-reply.png' %} " alt="">
+                                    {{ rep.private_response }}
+                                </div>
+                                {% endif %}
+                                <div class="reply-btns">
+                                    <button class="btn btn-outline-primary edit">Edit</button>
+                                    <button class="btn btn-outline-danger delete" data-bs-toggle='modal' data-bs-target='#delete-reply-modal'>Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="card" id='add_reply'>
+                    <div class="card-title">
+                        <div class='replies-title pt-3 px-3'>
+                            Add reply 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post" id='form-add-reply'>
+                            {% csrf_token %}
+                            <input type="hidden" id="reply-id">
+                            <div class='form-text'>
+                                If comment have any pf this words:    
+                            </div>
+                            <div id="words-container"></div>
+                            <input type="text" name="words-input" id="words-input" placeholder='Add the word then press ENTER' class='form-control'>
+                            <div class="form-text">
+                                Reply to comment
+                            </div>
+                            <input type="text" name="reply" id='reply' placeholder='Reply' class='form-control'>
+                            <div class="form-text">
+                                Reply privately
+                            </div>
+                            <input type="text" name='reply-privately' id='reply-privately' placeholder='Reply Privately' class='form-control'>
+                            <input type="hidden" name="post_id" id='post_id' value='{{ post.id }}'>
+                            <div class="mt-3">
+                                <button class="btn btn-outline-primary" id='btn-add-reply'>Add reply</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="delete-reply-modal" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="ModalLabel" aria-hidden="true" role="dialog" tabindex='-1'>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">
+                    Warning
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this reply?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-danger" id='delete-reply' data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock content %}
+{% block scripts %}
+    <script src=" {% static 'main/js/automate_post_comments_response.js' %} "></script>
+{% endblock scripts %}

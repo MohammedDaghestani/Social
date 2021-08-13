@@ -1,1 +1,12 @@
-POST http://127.0.0.1:8000/accounts/facebook/ HTTP/1.1
+GET  http://127.0.0.1:8000/accounts/login HTTP/1.1
+####
+
+POST http://127.0.0.1:8000/accounts/login/ HTTP/1.1
+Content-Type: application/json
+Authorization: "mvOTzaMKjDcq7vftIzeBEm3fTdlZfPpx8mWr7reV7ryVZj3dHoxI37JQeMRI4NEf"
+
+{
+    "csrfmiddlewaretoken": "mvOTzaMKjDcq7vftIzeBEm3fTdlZfPpx8mWr7reV7ryVZj3dHoxI37JQeMRI4NEf"
+    "username": "daghestani.mhd@gmail.com",
+    "password": "django123"
+} 

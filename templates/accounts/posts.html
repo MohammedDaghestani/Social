@@ -1,0 +1,20 @@
+{% for post in posts %}
+    <a href=" {% url 'accounts:response' post.id %} " class="list-group-item list-group-item-action">
+        {% if post.full_picture %}
+            <div class="post-pic">
+                <img src=" {{ post.full_picture }} " alt="full picture" class='with-pic'>
+            </div>
+        {% else %}
+            <div class='non-pic post-pic'><b>Aa</b></div>
+        {% endif %}
+        <div class="data">
+            <div class='table-data'> 
+                {{ post.message|linebreaksbr }}
+            </div>
+        </div>
+        <div class='form-text date'>
+            {{ post.created_time }}
+            {% comment %} <a href="{{ post.permalink_url }}" target='blank'>Show post on Facebook</a> {% endcomment %}
+        </div>
+    </a>
+{% endfor %}

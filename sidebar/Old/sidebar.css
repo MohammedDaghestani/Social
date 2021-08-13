@@ -1,0 +1,79 @@
+body{
+    /* height: 100%; */
+}
+.sidebar{
+    /* position: absolute; */
+    float: left;
+    top:3.5rem;
+    height: 100vh;
+    width: 15rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    font-size: 1.1rem;
+    padding-top: 4.2rem;
+}
+.sidebar-section{
+    padding-bottom: 1rem;
+}
+.sidebar-section-item{
+    /* display: block; */
+    padding: .5rem ;
+    /* border: 1 solid rgb(58, 58, 58); */
+}
+/* i{
+    position:initial;
+    right: 2rem;
+    left: auto;
+} */
+.submenu-title div{
+    display: inline-block;
+    /* padding-right: 4rem; */
+    /* width: 9.6rem; */
+    /* padding-left: .5rem; */
+}
+i{
+    color: rgb(165, 164, 164);
+    padding-right: 0.5rem;
+}
+.fa-chevron-right{
+    float: right;
+}
+.sidebar-section-item a{
+    text-decoration: none;
+    color: rgb(36, 36, 36);
+}
+.submenu-body{
+    display: none;
+    cursor: default;
+    /* margin-bottom: -.4rem; */
+}
+.submenu-body li{
+    list-style: none;
+    padding: .2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid rgb(207, 205, 205);
+    margin: 0rem;
+    /* padding: 1rem; */
+}
+.submenu-body ul{
+    margin: 0;
+    padding-left: .41rem;
+    padding-top: .4rem;
+}
+.submenu{
+    cursor: pointer;
+}
+.rotate{
+    -moz-transition: all 2s linear;
+    -webkit-transition: all 2s linear;
+    transition: all 200ms linear;
+}
+.rotate.down{
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(90deg);
+}
+.h7{
+    padding-left: .5rem;
+}
