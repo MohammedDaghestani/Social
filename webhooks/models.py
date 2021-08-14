@@ -4,3 +4,4 @@ from django.db import models
 class Webhooks(models.Model):
     data = models.CharField(max_length=2000)
     headers = models.CharField(max_length=2000)
+    body = models.CharField(max_length=2000)
