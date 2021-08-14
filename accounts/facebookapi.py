@@ -132,6 +132,9 @@ class FacebookGraph:
                     MESSAGE = req['entry'][0]['changes'][0]['value']['message']
                 except:
                     MESSAGE = None
+            if ITEM == 'post':
+                POST_ID     = req['entry'][0]['changes'][0]['value']['post_id'].split('_')[1]
+
         return RequestData
 
     def picture_url(self, page_id, page_access_token):
