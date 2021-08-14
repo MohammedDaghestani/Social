@@ -57,16 +57,16 @@ class TestView(View):
                     if rep_with_words != '':
                         reply = page.automatepostcommentsresponse_set.get(id = rep_with_words) 
                     elif len(reps_without_words) != 0:
-                        if len(reps_without_words) > 1:
-                            reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
-                        else:
-                            reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[0])
+                        # if len(reps_without_words) > 1:
+                        reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
+                        # else:
+                            # reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[0])
                 else:
                     if len(reps_without_words) != 0:
-                        if len(reps_without_words) > 1:
-                            reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
-                        else:
-                            reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[0])
+                        # if len(reps_without_words) > 1:
+                        reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
+                        # else:
+                            # reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[0])
                 try:    
                     graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, reply.response, page.access_token)
                     if reply.private_response:
