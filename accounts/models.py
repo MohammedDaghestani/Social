@@ -138,7 +138,7 @@ class AutomatePostCommentsResponse(models.Model):
     private_response = models.CharField(max_length=2000, blank=True, null=True)
     # name = models.CharField(_('automate name'), max_length=255)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return str(self.id)
 
     

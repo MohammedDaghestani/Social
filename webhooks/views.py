@@ -27,7 +27,7 @@ class TestView(View):
             return HttpResponse('Error, invalid token')
     # @csrf_exempt()
     def post(self, request):
-        print(request.body)
+        # print(request.body)
         Webhooks.objects.create(data = json.loads(request.body), headers = request.headers, body = request.body)
         graph = functions.app() #FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
         data = graph.analyze_request(request)
@@ -44,16 +44,23 @@ class TestView(View):
             except:
                 replies = None
             if replies != None:
-                print(replies)
                 rep_with_words = '' # reply id for the matched reply
                 reps_without_words = [] # replies that don't have a specific words
                 for reply in replies:
-                    if len(reply.words) != 0:
+                    print('words', end='\n')
+                    print('words length = ' + str(len(reply.words)))
+                    print(reply.words)
+                    if len(reply.words) != 0 and reply.words[0] !='':
                         for word in reply.words:
                             if data.MESSAGE.value.find(word) != -1:
                                 rep_with_words = reply.id
+                                break
                     else:
                         reps_without_words.append(reply.id)
+                print('Replies with words', end='\n')
+                print(rep_with_words)
+                print('Replies without words', end='\n')
+                print(reps_without_words)
                 # Comments that don't have message it should contain stickers
                 if data.MESSAGE.value != None:
                     if rep_with_words != '':
