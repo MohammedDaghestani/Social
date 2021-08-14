@@ -27,8 +27,7 @@ class TestView(View):
             return HttpResponse('Error, invalid token')
     # @csrf_exempt()
     def post(self, request):
-        print(request.headers)
-        Webhooks.objects.create(data = json.loads(request.body))
+        Webhooks.objects.create(data = json.loads(request.body), headers = request.headers)
         graph = functions.app() #FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
         data = graph.analyze_request(request)
 
