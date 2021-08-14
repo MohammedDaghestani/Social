@@ -115,7 +115,7 @@ function edit_btn_click() {
     let r_id = document.getElementById('reply-id');
     r_id.value = $(this).parent().parent().parent().attr('id');
     rep_input.value = $(card_bodies[1]).find('.reply-with')[0].innerText.trim();
-    if($(card_bodies[1]).find('.reply-privately')[0].innerText.trim() != 'undefined'){
+    if($(card_bodies[1]).find('.reply-privately')[0] != undefined){
         rep_privately_input.value = $(card_bodies[1]).find('.reply-privately')[0].innerText.trim();
     }
     $(this).parent().parent().parent().remove();
