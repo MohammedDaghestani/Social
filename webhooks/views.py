@@ -27,6 +27,7 @@ class TestView(View):
             return HttpResponse('Error, invalid token')
     # @csrf_exempt()
     def post(self, request):
+        print(request.headers)
         Webhooks.objects.create(data = json.loads(request.body))
         graph = functions.app() #FacebookGraph(self.app_id, self.app_secret, self.redirect_url)
         data = graph.analyze_request(request)
@@ -43,6 +44,7 @@ class TestView(View):
             except:
                 replies = None
             if replies != None:
+                print(replies)
                 rep_with_words = '' # reply id for the matched reply
                 reps_without_words = [] # replies that don't have a specific words
                 for reply in replies:
