@@ -22,13 +22,14 @@ class TestView(View):
         Webhooks.objects.create(data = json.loads(request.body), headers = request.headers, body = request.body)
         graph = functions.app() 
         data = graph.analyze_request(request)
-
+        page = FacebookPage.objects.get(id = data.PAGE_ID.value)
+        graph.access_token = page.access_token
         # If the action is comment  
         if data.ITEM.value == 'comment' and data.VERB.value == 'add':
             if data.PAGE_ID.value == data.SENDER.value:
                 return HttpResponse('This comment is from page')
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
-            if graph.check_reply_if_exist(data.PAGE_ID.value, data.POST_ID.value):
+            if graph.check_reply_if_exist(data.PAGE_ID.value, data.COMMENT_ID.value):
                 return HttpResponse('Exist')
             # Check if there any replies to this post  
             try:

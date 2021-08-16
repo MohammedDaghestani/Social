@@ -209,9 +209,13 @@ class FacebookGraph:
         res['created_time'] = datetime.strptime(req.json()['created_time'], "%Y-%m-%dT%H:%M:%S%z") 
         return res
         
-    def check_reply_if_exist(self, page_id, post_id):
-        req = requests.get(self.graph_url + page_id + '_' +  post_id + '/comments')
-        for reply in req.json():
+    def check_reply_if_exist(self, page_id, comment_id):
+        data = {
+            'access_token': self.access_token
+        }
+        req = requests.get(self.graph_url + comment_id + '/comments', data)
+        for reply in req.json()['data']:
             if reply['from']['id'] == page_id:
                 return True
         return False
+        
