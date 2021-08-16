@@ -211,7 +211,7 @@ class FacebookGraph:
         
     def check_reply_if_exist(self, page_id, post_id):
         req = requests.get(self.graph_url + page_id + '_' +  post_id + '/comments')
-        for reply in req.json()['data']:
+        for reply in req.json():
             if reply['from']['id'] == page_id:
                 return True
         return False
