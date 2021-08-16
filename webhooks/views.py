@@ -25,13 +25,13 @@ class TestView(View):
 
         # If the action is comment  
         if data.ITEM.value == 'comment' and data.VERB.value == 'add':
+            if data.PAGE_ID.value == data.SENDER.value:
+                return HttpResponse('This comment is from page')
             comments = Insights.objects.all()
             if len(comments) == 0:
                 Insights.objects.create(comments = 1)
             else:
                 Insights.objects.create(comments = Insights.objects.last().comments + 1)
-            if data.PAGE_ID.value == data.SENDER.value:
-                return HttpResponse('This comment is from page')
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
 
             # Check if there any replies to this post  
