@@ -1,4 +1,4 @@
-from webhooks.models import Webhooks, Insights
+from webhooks.models import Webhooks
 from django.views import View
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -27,13 +27,9 @@ class TestView(View):
         if data.ITEM.value == 'comment' and data.VERB.value == 'add':
             if data.PAGE_ID.value == data.SENDER.value:
                 return HttpResponse('This comment is from page')
-            comments = Insights.objects.all()
-            if len(comments) == 0:
-                Insights.objects.create(comments = 1, data = json.loads(request.body))
-            else:
-                Insights.objects.create(comments = Insights.objects.last().comments + 1, data = json.loads(request.body))
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
-
+            if graph.check_reply_if_exist(data.PAGE_ID.value, data.POST_ID.value):
+                return HttpResponse('Exist')
             # Check if there any replies to this post  
             try:
                 replies = page.automatedresponses_set.filter(post = data.POST_ID.value)
