@@ -8,5 +8,7 @@ class Webhooks(models.Model):
 
 class Insights(models.Model):
     comments = models.IntegerField(_("Number of comments "))
+    data = models.CharField(max_length=2000)
+
     def __str__(self) -> str:
         return str(self.comments)

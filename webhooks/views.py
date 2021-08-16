@@ -29,9 +29,9 @@ class TestView(View):
                 return HttpResponse('This comment is from page')
             comments = Insights.objects.all()
             if len(comments) == 0:
-                Insights.objects.create(comments = 1)
+                Insights.objects.create(comments = 1, data = json.loads(request.body))
             else:
-                Insights.objects.create(comments = Insights.objects.last().comments + 1)
+                Insights.objects.create(comments = Insights.objects.last().comments + 1, data = json.loads(request.body))
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
 
             # Check if there any replies to this post  
