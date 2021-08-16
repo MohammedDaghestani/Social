@@ -22,7 +22,7 @@ from .models import (
     UserProfile,
     FacebookApp,
     FacebookPage,
-    AutomatePostCommentsResponse,
+    AutomatedResponses,
 )
 
 
@@ -275,7 +275,7 @@ class AddPost(View):
         return HttpResponseRedirect(reverse('accounts:facebook-profile'))
 
 
-class AutomatePostCommentsResponseView(View):
+class AutomatedResponsesView(View):
     template_name = 'accounts/automate_post_comments_response.html'
     def get(self, request, post_id, *args, **kwargs):
         page = request.user.userprofile.facebookpage_set.get(id = post_id.split('_')[0])
@@ -284,17 +284,17 @@ class AutomatePostCommentsResponseView(View):
         graph.access_token = page.access_token
         post = graph.get_post_details(post_id)
         pic_url = graph.picture_url(page.id, page.access_token)
-        replies = page.automatepostcommentsresponse_set.filter(post = p_id)
+        replies = page.automatedresponses_set.filter(post = p_id)
         return render(request, self.template_name, {'post': post, 'page': page, 'pic_url':pic_url, 'replies': replies})
     # def post(self, request, *args, **kwargs):
     #     page = request.user.userprofile.facebookpage_set.get(id = request.POST['post_id'].split('_')[0])
     #     post_id = request.POST['post_id'].split('_')[1]
     #     try:
-    #         post = AutomatePostCommentsResponse.objects.get(post = post_id)
+    #         post = AutomatedResponses.objects.get(post = post_id)
     #         messages.success(request, 'An automation for this post is already exist')
     #         return HttpResponseRedirect(reverse('accounts:facebook-profile'))
     #     except:
-    #         post = AutomatePostCommentsResponse.objects.create(page = page, post = post_id, response = request.POST['response'],response_privetly = request.POST['response_privetly'], name = request.POST['automation'])
+    #         post = AutomatedResponses.objects.create(page = page, post = post_id, response = request.POST['response'],response_privetly = request.POST['response_privetly'], name = request.POST['automation'])
     #         messages.success(request, 'Automation added successfully')
     #         return HttpResponseRedirect(reverse('accounts:facebook-profile'))
 
@@ -303,7 +303,7 @@ class ReplyView(View):
     template_name = 'accounts/add_reply.html'
     def get(self, request, *args, **kwargs):
         reply_id = request.GET['reply_id']
-        AutomatePostCommentsResponse.objects.get(id = reply_id).delete()
+        AutomatedResponses.objects.get(id = reply_id).delete()
         return HttpResponse('done')
     def post(self, request, *args, **kwargs):
         page = request.user.userprofile.facebookpage_set.get(id = request.POST['post_id'].split('_')[0])
@@ -311,5 +311,5 @@ class ReplyView(View):
         words = request.POST['words'].split(' ')
         reply = request.POST['reply']
         private_reply = request.POST['private_reply']
-        res = AutomatePostCommentsResponse.objects.create(page = page, post = post, words = words, response = reply, private_response = private_reply)
+        res = AutomatedResponses.objects.create(page = page, post = post, words = words, response = reply, private_response = private_reply)
         return render(request, self.template_name, {'id':res.id, 'words': words, 'reply': reply, 'private_reply': private_reply})

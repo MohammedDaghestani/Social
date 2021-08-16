@@ -1,4 +1,4 @@
-from webhooks.models import Webhooks
+from webhooks.models import Webhooks, Insights
 from django.views import View
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -24,14 +24,19 @@ class TestView(View):
         data = graph.analyze_request(request)
 
         # If the action is comment  
-        if data.ITEM.value == 'comment':
+        if data.ITEM.value == 'comment' and data.VERB.value == 'add':
+            comments = Insights.objects.all()
+            if len(comments) == 0:
+                Insights.objects.create(comments = 1)
+            else:
+                Insights.objects.create(comments = Insights.objects.last().comments + 1)
             if data.PAGE_ID.value == data.SENDER.value:
                 return HttpResponse('This comment is from page')
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
 
             # Check if there any replies to this post  
             try:
-                replies = page.automatepostcommentsresponse_set.filter(post = data.POST_ID.value)
+                replies = page.automatedresponses_set.filter(post = data.POST_ID.value)
             except:
                 replies = None
             if replies != None:
@@ -48,12 +53,12 @@ class TestView(View):
                 # Comments that don't have message it should contain stickers
                 if data.MESSAGE.value != None:
                     if rep_with_words != '':
-                        reply = page.automatepostcommentsresponse_set.get(id = rep_with_words) 
+                        reply = page.automatedresponses_set.get(id = rep_with_words) 
                     elif len(reps_without_words) != 0:
-                        reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
+                        reply = page.automatedresponses_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
                 else:
                     if len(reps_without_words) != 0:
-                        reply = page.automatepostcommentsresponse_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
+                        reply = page.automatedresponses_set.get(id = reps_without_words[random.randrange(len(reps_without_words))])
                 try:    
                     graph.reply_comments(True, data.SENDER.value, data.COMMENT_ID.value, reply.response, page.access_token)
                     if reply.private_response:
@@ -63,10 +68,12 @@ class TestView(View):
                     return HttpResponse('error')
             else:
                 return HttpResponse('noReplies')
+                
+        # When remove the post delete it's replies from the site
         elif data.ITEM.value == 'post' and data.VERB.value == 'remove':
             print(data.POST_ID.value)
             page = FacebookPage.objects.get(id = data.PAGE_ID.value)
-            page.automatepostcommentsresponse_set.filter(post = data.POST_ID.value).delete()
+            page.automatedresponses_set.filter(post = data.POST_ID.value).delete()
             return HttpResponse('Delete replies success')
 
 

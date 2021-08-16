@@ -7,7 +7,7 @@ from .views import (
     FacebookLoginView,
     FacebookProfileView,
     AddPost,
-    AutomatePostCommentsResponseView,
+    AutomatedResponsesView,
     FacebookMorePosts,
     FacebookSearchPostsView,
     FacebookScheduledPostsView,
@@ -29,7 +29,7 @@ urlpatterns = [
     path('facebook/published-posts', FacebookPublishedPostsView.as_view(), name='facebook-published-posts'),
     path('facebook/posts/<str:lifetime>', FacebookLifeTimePostsView.as_view(), name = 'facebook-posts-lifetime'),
     path('add-post/', AddPost.as_view(), name='add-post'),
-    path('add-automate-response/<str:post_id>/', AutomatePostCommentsResponseView.as_view(), name='response'),
+    path('add-automate-response/<str:post_id>/', AutomatedResponsesView.as_view(), name='response'),
     path('facebook/search-post/<str:post_id>', FacebookSearchPostsView.as_view() ,name='search-post'),
     path('facebook/post/reply', ReplyView.as_view(), name='reply'),
 ]

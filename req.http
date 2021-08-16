@@ -4,4 +4,30 @@ GET  http://127.0.0.1:8000/accounts/login HTTP/1.1
 POST http://127.0.0.1:8000/webhooks/ HTTP/1.1
 Content-Type: application/json
 
-'{"object": "page", "entry": [{"id": "134150406795176", "time": 1628948943, "changes": [{"value": {"from": {"id": "134150406795176", "name": "\\u0623\\u0646\\u062f\\u0631\\u0648\\u064a\\u062f \\u0633\\u0648\\u0631\\u064a\\u0627"}, "post": {"status_type": "mobile_status_update", "is_published": true, "updated_time": "2021-08-14T13:48:57+0000", "permalink_url": "https://www.facebook.com/134150406795176/posts/1730204453856422/", "promotion_status": "inactive", "id": "134150406795176_1730204453856422"}, "message": "Shemharos Swagar reply with dot", "post_id": "134150406795176_1730204453856422", "comment_id": "1730204453856422_1730864737123727", "created_time": 1628948937, "item": "comment", "parent_id": "1730204453856422_1730864717123729", "verb": "add"}, "field": "feed"}]}]}'
+{
+    "object": "page", 
+    "entry": [
+        {
+            "id": "134150406795176", 
+            "time": 1628955742, 
+            "changes": [
+                {
+                    "value": 
+                    {
+                        "from": 
+                        {
+                            "id": "134150406795176", 
+                            "name": "\\u0623\\u0646\\u062f\\u0631\\u0648\\u064a\\u062f \\u0633\\u0648\\u0631\\u064a\\u0627"
+                        }, 
+                        "post_id": "134150406795176_1730924733784394", 
+                        "created_time": 1628955740, 
+                        "item": "post", 
+                        "recipient_id": "134150406795176", 
+                        "verb": "remove"
+                    }, 
+                    "field": "feed"
+                }
+            ]
+        }
+    ]
+}

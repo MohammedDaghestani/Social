@@ -128,7 +128,7 @@ class FacebookPage(models.Model):
         return self.name
 
 
-class AutomatePostCommentsResponse(models.Model):
+class AutomatedResponses(models.Model):
     # id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     id = models.UUIDField(primary_key=True ,default=uuid.uuid4, verbose_name=(_('ID')), help_text=_('Unique ID for the reply'))
     page = models.ForeignKey(FacebookPage, on_delete=models.CASCADE)

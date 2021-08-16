@@ -6,7 +6,7 @@ from .models import (
     UserProfile,
     FacebookApp,
     FacebookPage,
-    # AutomatePostCommentsResponse,
+    # AutomatedResponses,
 ) 
 
 
@@ -38,4 +38,4 @@ admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile)
 admin.site.register(FacebookApp)
 admin.site.register(FacebookPage)
-# admin.site.register(AutomatePostCommentsResponse)
+# admin.site.register(AutomatedResponses)
